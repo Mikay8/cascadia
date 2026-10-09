@@ -49,7 +49,7 @@ Project `cascadia`, workspace "Mikayla's Projects", region `sfo`.
 | Service | Root directory | Watch paths | Restart policy | URL |
 | --- | --- | --- | --- | --- |
 | `backend` | `/backend` | `/backend/**` | On failure, 5 retries | https://backend-staging-bc95.up.railway.app |
-| `frontend` | `/frontend` | `/frontend/**` | On failure, 5 retries | Added when the service is live |
+| `frontend` | `/frontend` | `/frontend/**` | On failure, 5 retries | https://frontend-staging-5620.up.railway.app |
 | `Postgres` | n/a | n/a | Platform managed | None; `postgres.railway.internal` only |
 
 Back-end variables (values live in Railway, never in the repo):
@@ -62,6 +62,10 @@ Back-end variables (values live in Railway, never in the repo):
 | `DJANGO_ALLOWED_HOSTS` | The back-end domain, plus `healthcheck.railway.app` for Railway's health check |
 | `DJANGO_CSRF_TRUSTED_ORIGINS` | `https://` plus the back-end domain |
 | `PORT`, `WEB_CONCURRENCY`, `RUN_MIGRATIONS` | `8000`, `2`, `1` |
+
+Front-end variables: `PORT` is `8080`. The front end has no secrets.
+
+Create services one at a time on Railway. Creating two at once left both stuck in "applying" and had to be cleared by hand in the dashboard.
 
 ## Secrets
 
