@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/broadsheet-4d1f8911-f3e7-4420-baa2-3b9f73b4cfc4/styles.css">
+<script src="_ds/broadsheet-4d1f8911-f3e7-4420-baa2-3b9f73b4cfc4/_ds_bundle.js"></script>
+<style>
+body { margin: 0; background: var(--color-neutral-300); }
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-800); }
+</style>
+</helmet>
+<div style="padding:64px;display:flex;flex-direction:column;gap:96px;font-family:var(--font-body);color:var(--color-text);font-variant-numeric:tabular-nums lining-nums">
+
+<header style="display:flex;flex-direction:column;gap:8px;max-width:900px">
+  <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-800)">Cascadia · wireframes · pass 1 of 4</span>
+  <h1 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:44px;line-height:1.1">Global patterns, Waterfall runs, Capital stack</h1>
+  <p style="margin:0;font-size:16px;line-height:1.5;max-width:720px;text-wrap:pretty">Low-fidelity, 1440 px staff boards on Riverbend CDFI · Main Street Opportunity Fund sample data. Numbered markers on each board match the notes to its right. The two cascades are live: use Tweaks to switch the simulated cash pool and the loss amount.</p>
+</header>
+
+<!-- ========== 0 COMPONENT SHEET ========== -->
+<section id="0" data-screen-label="00 Component sheet" style="display:flex;flex-direction:column;gap:24px">
+  <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:28px">0 · Component sheet</h2>
+  <div id="0a" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md);padding:48px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
+      <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">0a · Component sheet</span>
+
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Loan status</span>
+          <span style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="tag tag-accent">● Current</span><span class="tag tag-neutral">◔ 30–59 late</span><span class="tag tag-neutral">◑ 60–89 late</span><span class="tag tag-accent-2">◕ 90+ late</span><span class="tag" style="background:var(--color-text);color:var(--color-bg)">■ Default</span><span class="tag tag-outline">✓ Paid off</span>
+          </span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Event settlement</span>
+          <span style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="tag tag-accent">● Settled</span><span class="tag tag-neutral">◐ Pending</span><span class="tag tag-outline">↺ Reversed</span><span class="tag tag-accent-2">▲ Disputed</span>
+          </span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Ruleset</span>
+          <span style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="tag tag-neutral">○ Draft</span><span class="tag tag-outline">◐ Pending approval</span><span class="tag tag-accent">● Active</span><span class="tag tag-neutral" style="text-decoration:line-through">Superseded</span>
+          </span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Run</span>
+          <span style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="tag tag-neutral">○ Draft</span><span class="tag tag-outline">◐ Pending approval</span><span class="tag tag-accent">● Executed</span><span class="tag tag-accent-2">✕ Failed</span><span class="tag tag-accent-2">◑ Partial</span>
+          </span>
+        </div>
+      </div>
+      <p style="margin:-32px 0 0;font-size:13px;color:var(--color-neutral-800);max-width:760px">Every badge carries a glyph and a word, so status never depends on color. Same shape means the same idea across families: ● done / healthy, ◐ waiting on someone, ▲ needs attention, ✕ failed.</p>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:40px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Money rule</span>
+          <div style="display:grid;grid-template-columns:auto auto;gap:6px 24px;font-size:15px;justify-content:start">
+            <span>Positive</span><span style="text-align:right">$412,350.00</span>
+            <span>Negative</span><span style="text-align:right">($9,200.00)</span>
+            <span>Zero</span><span style="text-align:right">$0.00</span>
+            <span>Not applicable</span><span style="text-align:right">None</span>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Two decimals, thousands separators, tabular figures, right-aligned. Negatives in parentheses everywhere, never color alone. No “$412K”.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">KPI tile</span>
+          <div class="card" style="gap:4px">
+            <span style="font-size:12px;color:var(--color-neutral-800)">Cash ready to distribute</span>
+            <span style="font-size:26px;font-weight:600">$412,350.00</span>
+            <span style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--color-neutral-800)">Settled, Q3 2026 · as of Sep 30</span><a href="#calc">Show calculation</a></span>
+          </div>
+          <div class="card" style="gap:4px">
+            <span style="font-size:12px;color:var(--color-neutral-800)">Loading</span>
+            <span style="height:26px;width:70%;background:var(--color-neutral-300)"></span>
+            <span style="height:12px;width:45%;background:var(--color-neutral-300)"></span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Stepper</span>
+          <div style="display:flex;gap:4px;font-size:13px">
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;background:var(--color-accent)"></span><span>✓ 1 Period and fund</span></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;background:var(--color-accent)"></span><span>✓ 2 Cash pool</span></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;font-weight:600"><span style="height:4px;background:var(--color-text)"></span><span>3 Simulate</span></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;color:var(--color-neutral-700)"><span style="height:4px;background:var(--color-neutral-300)"></span><span>4 Submit</span></span>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Completed steps are clickable to go back; later steps unlock in order. Current step is ink, not color.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Mode banners (full width, above the top bar, cannot be dismissed)</span>
+        <div style="display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--color-accent-2-100);color:var(--color-accent-2-900);font-size:14px"><strong>Support access</strong><span>Cascadia support (J. Moreno) is viewing Riverbend CDFI read-only · approved by Alex Chen</span><span style="margin-left:auto;font-weight:600">Ends in 1 h 42 min</span><button class="btn btn-secondary">End session</button></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--color-accent-2-700);color:var(--color-bg);font-size:14px"><strong>▲ Support access ends in 8 min</strong><span>Last-hour warning: the banner inverts and the countdown shows minutes.</span><span style="margin-left:auto"></span><button class="btn" style="background:var(--color-bg);color:var(--color-text)">End session</button></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--color-accent-100);color:var(--color-accent-900);font-size:14px"><strong>Read-only audit access</strong><span>Granted by Alex Chen to Priya Nair, Halloway &amp; Co. CPAs</span><span style="margin-left:auto;font-weight:600">Expires Nov 15, 2026</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--color-neutral-200);font-size:14px"><strong>◐ Run in progress</strong><span>Dana Ortiz started the Q3 2026 waterfall run at 10:02. New runs are locked until it is executed or discarded.</span><a href="#8c" style="margin-left:auto">Open run</a></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--color-neutral-200);font-size:14px"><strong>✕ Servicer sync failed</strong><span>LoanPro webhook returned 401. Last good sync Oct 7, 2026 at 23:40. Events after that time are missing.</span><button class="btn btn-secondary" style="margin-left:auto">Resync</button></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Table toolbar and header</span>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px">
+          <span class="tag tag-accent">Payment ✕</span><span class="tag tag-accent">Settled ✕</span><span class="tag tag-outline">+ Filter</span>
+          <span style="margin-left:16px;color:var(--color-neutral-700)">Saved:</span><span class="tag tag-neutral">Q3 settled ▾</span>
+          <span style="margin-left:auto"></span>
+          <button class="btn btn-ghost">Columns</button><button class="btn btn-secondary">Export CSV</button>
+        </div>
+        <table class="table">
+          <thead><tr><th>Date ▼</th><th>Type</th><th>Loan · borrower</th><th style="text-align:right">Amount</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+          <tbody>
+            <tr><td>Sep 28, 2026</td><td>Payment</td><td>ML-1042 · Maria's Bakery LLC</td><td style="text-align:right">$4,250.00</td><td><span class="tag tag-accent">● Settled</span></td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+            <tr><td>Sep 22, 2026</td><td>Reversal</td><td>ML-1017 · Eastside Auto Repair</td><td style="text-align:right">($9,200.00)</td><td><span class="tag tag-outline">↺ Reversed</span></td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+          </tbody>
+        </table>
+        <p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Header row is sticky. Row actions always sit in the last column: History link, then an overflow menu. Pagination (50 / 100 / 250 per page) sits under every table, right-aligned.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Waterfall cascade · payout (shortfall state, $60,000.00)</span>
+          <dc-import name="Cascade" mode="payout" amount="60000" hint-size="100%,420px"></dc-import>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Waterfall cascade · loss (Tweak: loss amount)</span>
+          <dc-import name="Cascade" mode="loss" amount="{{ lossAmount }}" hint-size="100%,420px"></dc-import>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Diff view (maker-checker)</span>
+          <table class="table">
+            <thead><tr><th>Field</th><th>Before · v4 Active</th><th>After · v5 Pending approval</th></tr></thead>
+            <tbody>
+              <tr><td>Tier 3 rate</td><td style="text-decoration:line-through;color:var(--color-neutral-700)">8.00%</td><td style="font-weight:600;background:var(--color-accent-100)">7.50%</td></tr>
+              <tr><td>Effective date</td><td style="text-decoration:line-through;color:var(--color-neutral-700)">Jan 1, 2026</td><td style="font-weight:600;background:var(--color-accent-100)">Oct 1, 2026</td></tr>
+              <tr><td>Tiers 1, 2, 4</td><td colspan="2" style="color:var(--color-neutral-700)">Unchanged</td></tr>
+            </tbody>
+          </table>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-primary" disabled="">Approve</button>
+            <span style="font-size:13px;color:var(--color-neutral-800)">You submitted this change. Another approver must review it.</span>
+          </div>
+          <p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Own-work rule: Approve is shown disabled with the reason, never hidden. All other absent controls are hidden.</p>
+        </div>
+        <div id="calc" style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Show calculation panel (side panel, 440 px)</span>
+          <div style="background:var(--color-bg);box-shadow:var(--shadow-lg);padding:24px;display:flex;flex-direction:column;gap:14px;font-size:14px">
+            <span style="display:flex;justify-content:space-between"><strong style="font-size:17px">Class B preferred return owed</strong><span>✕</span></span>
+            <span style="font-size:24px;font-weight:600">$37,500.00</span>
+            <p style="margin:0;line-height:1.5">Class B capital times its annual target rate, divided by four because runs are quarterly.</p>
+            <div style="display:grid;grid-template-columns:auto auto;gap:4px 24px;justify-content:start;background:var(--color-surface);padding:12px"><span>Class B capital</span><span style="text-align:right">$3,000,000.00</span><span>Annual rate</span><span style="text-align:right">5.00%</span><span>Periods per year</span><span style="text-align:right">4</span></div>
+            <span>Source: <a href="#e">Investor ledger, 2 accounts</a> · <a href="#e">142 settled events</a></span>
+            <span>Rules: <a href="#5a">Ruleset v4, tier 2</a></span>
+            <span style="color:var(--color-neutral-800)">Prepared by Dana Ortiz, Oct 3, 2026 10:14 · Approved by Sam Whitaker, Oct 4, 2026 09:02</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Empty state</span>
+          <div style="padding:40px;background:var(--color-surface);display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+            <strong style="font-size:17px">No waterfall runs yet</strong>
+            <p style="margin:0;font-size:14px;max-width:440px">Each run allocates one period's settled cash across Class A, B and C. You need an active ruleset and at least one settled servicing event first.</p>
+            <button class="btn btn-primary">Start first run</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Permission denied (direct link)</span>
+          <div style="padding:40px;background:var(--color-surface);display:flex;flex-direction:column;gap:10px;align-items:flex-start">
+            <strong style="font-size:17px">Settings is only available to tenant admins</strong>
+            <p style="margin:0;font-size:14px;max-width:440px">You are signed in as Executive on Main Street Opportunity Fund. Ask Alex Chen (tenant admin) if you need access.</p>
+            <a href="#d">Back to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 8 WATERFALL RUNS ========== -->
+<section id="8" data-screen-label="08 Waterfall runs" style="display:flex;flex-direction:column;gap:48px">
+  <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:28px">8 · Waterfall runs</h2>
+
+  <!-- 8a list -->
+  <div id="8a" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--color-neutral-200);font-size:14px"><strong>◐ Run in progress</strong><span>Dana Ortiz started the Q3 2026 run at 10:02 and submitted it for approval. New runs are locked until it is executed or discarded.</span><a href="#8d" style="margin-left:auto">Open run</a></div>
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Fund administrator</span>
+        <span style="margin-left:auto">Notifications <span class="tag tag-accent">2</span></span>
+        <span>Dana Ortiz ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navMakerRuns }}" as="it" hint-placeholder-count="10">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:24px;min-width:0">
+          <div style="display:flex;align-items:flex-end;gap:16px">
+            <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">Waterfall runs</h3>
+            <span style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <button class="btn btn-primary" disabled="">New run <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span></button>
+              <span style="font-size:12px;color:var(--color-neutral-800)">Locked while Q3 2026 is pending approval</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+            <span class="tag tag-outline">+ Status</span><span class="tag tag-outline">+ Ruleset</span><span class="tag tag-outline">+ Period</span>
+            <span style="margin-left:auto"></span><button class="btn btn-ghost">Columns</button><button class="btn btn-secondary">Export CSV</button>
+          </div>
+          <table class="table">
+            <thead><tr><th>Period ▼</th><th>Fund</th><th>Status</th><th style="text-align:right">Cash pool</th><th style="text-align:right">Distributed</th><th>Ruleset</th><th>Executed</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+              <tr><td><a href="#8d">Q3 2026</a></td><td>Main Street Opportunity</td><td><span class="tag tag-outline">◐ Pending approval</span></td><td style="text-align:right">$412,350.00</td><td style="text-align:right">$95,000.00</td><td>v4</td><td>None</td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+              <tr><td><a href="#8e">Q2 2026</a></td><td>Main Street Opportunity</td><td><span class="tag tag-accent">● Executed</span></td><td style="text-align:right">$398,120.40</td><td style="text-align:right">$95,000.00</td><td>v4</td><td>Jul 8, 2026</td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+              <tr><td>Q1 2026</td><td>Main Street Opportunity</td><td><span class="tag tag-accent">● Executed</span></td><td style="text-align:right">$385,006.15</td><td style="text-align:right">$95,000.00</td><td>v4</td><td>Apr 9, 2026</td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+              <tr><td>Q4 2025 · run 2</td><td>Main Street Opportunity</td><td><span class="tag tag-accent">● Executed</span></td><td style="text-align:right">$371,880.00</td><td style="text-align:right">$95,000.00</td><td>v3</td><td>Jan 14, 2026</td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+              <tr><td>Q4 2025 · run 1 <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">2</span></td><td>Main Street Opportunity</td><td><span class="tag tag-accent-2">✕ Failed</span></td><td style="text-align:right">$371,880.00</td><td style="text-align:right">$0.00</td><td>v3</td><td>None</td><td style="text-align:right"><a href="#h">History</a> · ⋯</td></tr>
+            </tbody>
+          </table>
+          <div style="display:flex;justify-content:flex-end;gap:16px;font-size:13px;color:var(--color-neutral-800)"><span>1–5 of 5</span><span>50 per page ▾</span></div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">8a · Run list · Fund administrator · locked</span>
+        <p style="margin:0"><strong>1</strong> Only one open run per fund. While a run is Draft or Pending approval, New run is disabled and the banner names who started it. Approvers never see New run (hidden, not disabled).</p>
+        <p style="margin:0"><strong>2</strong> Failed runs stay in the list with $0.00 distributed; a re-run is a new row (run 2), never an overwrite.</p>
+        <p style="margin:0">Distributed counts only cash paid to classes. Residual retained for relending is visible in the run detail.</p>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- 8b cash pool -->
+  <div id="8b" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Fund administrator</span>
+        <span style="margin-left:auto">Notifications <span class="tag tag-accent">2</span></span>
+        <span>Dana Ortiz ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navMakerRuns }}" as="it" hint-placeholder-count="10">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:28px;min-width:0">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <a href="#8a" style="font-size:13px">← Waterfall runs</a>
+            <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">New run · Q3 2026</h3>
+            <span style="font-size:14px;color:var(--color-neutral-800)">Main Street Opportunity Fund · Jul 1 – Sep 30, 2026 · Ruleset v4 · <span class="tag tag-neutral">○ Draft</span></span>
+          </div>
+          <div style="display:flex;gap:4px;font-size:13px;max-width:880px">
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;background:var(--color-accent)"></span><a href="#8b">✓ 1 Period and fund</a></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;font-weight:600"><span style="height:4px;background:var(--color-text)"></span><span>2 Cash pool</span></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;color:var(--color-neutral-700)"><span style="height:4px;background:var(--color-neutral-300)"></span><span>3 Simulate</span></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;color:var(--color-neutral-700)"><span style="height:4px;background:var(--color-neutral-300)"></span><span>4 Submit for approval</span></span>
+          </div>
+          <div style="display:flex;gap:56px;align-items:baseline">
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Cash pool for this run</span><span style="font-size:32px;font-weight:600">$412,350.00</span><a href="#calc" style="font-size:12px">Show calculation</a></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Included</span><span style="font-size:20px;font-weight:600">142 settled events</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Excluded</span><span style="font-size:20px;font-weight:600">3 events · $10,030.00</span></span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:40px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px">Included · settled by Sep 30 cutoff</strong>
+              <table class="table">
+                <thead><tr><th>Event type</th><th style="text-align:right">Events</th><th style="text-align:right">Amount</th></tr></thead>
+                <tbody>
+                  <tr><td>Payment</td><td style="text-align:right">128</td><td style="text-align:right">$398,900.00</td></tr>
+                  <tr><td>Prepayment</td><td style="text-align:right">3</td><td style="text-align:right">$21,450.00</td></tr>
+                  <tr><td>Fee</td><td style="text-align:right">10</td><td style="text-align:right">$1,200.00</td></tr>
+                  <tr><td>Reversal <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span></td><td style="text-align:right">1</td><td style="text-align:right">($9,200.00)</td></tr>
+                  <tr><td style="font-weight:600">Total</td><td style="text-align:right;font-weight:600">142</td><td style="text-align:right;font-weight:600">$412,350.00</td></tr>
+                </tbody>
+              </table>
+              <a href="#2" style="font-size:13px">View all 142 events in Servicing events →</a>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px">Excluded <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">2</span></strong>
+              <table class="table">
+                <thead><tr><th>Event</th><th>Status</th><th>Reason</th><th style="text-align:right">Amount</th></tr></thead>
+                <tbody>
+                  <tr><td>Sep 29 · Payment<br><span style="font-size:12px">Maria's Bakery LLC</span></td><td><span class="tag tag-neutral">◐ Pending</span></td><td style="font-size:13px">ACH not settled by cutoff; counts in Q4</td><td style="text-align:right">$4,250.00</td></tr>
+                  <tr><td>Sep 30 · Payment<br><span style="font-size:12px">Greenline Landscaping</span></td><td><span class="tag tag-neutral">◐ Pending</span></td><td style="font-size:13px">Received Sep 30 18:05, after the 17:00 cutoff</td><td style="text-align:right">$2,180.00</td></tr>
+                  <tr><td>Sep 15 · Payment<br><span style="font-size:12px">Eastside Auto Repair</span></td><td><span class="tag tag-accent-2">▲ Disputed</span></td><td style="font-size:13px">Disputed by Dana Ortiz: amount differs from servicer report</td><td style="text-align:right">$3,600.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <button class="btn btn-secondary">Back</button>
+            <button class="btn btn-ghost">Download snapshot (CSV)</button>
+            <span style="margin-left:auto"></span>
+            <button class="btn btn-ghost">Discard draft</button>
+            <button class="btn btn-primary">Continue to simulate</button>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">8b · New run, step 2 Cash pool · Fund administrator</span>
+        <p style="margin:0"><strong>1</strong> The bounced Eastside payment appears as a Reversal linked to its original event; the original is never removed. Clicking it opens the event drawer with both entries.</p>
+        <p style="margin:0"><strong>2</strong> Every excluded event shows why. Pending events roll into the next period automatically; disputed events stay out until resolved.</p>
+        <p style="margin:0">The cash pool is frozen as a snapshot when the user continues. If new events settle afterwards, step 2 shows “Snapshot is 2 events behind” with a Refresh option.</p>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- 8c simulate -->
+  <div id="8c" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Fund administrator</span>
+        <span style="margin-left:auto">Notifications <span class="tag tag-accent">2</span></span>
+        <span>Dana Ortiz ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navMakerRuns }}" as="it" hint-placeholder-count="10">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:28px;min-width:0">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <a href="#8a" style="font-size:13px">← Waterfall runs</a>
+            <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">New run · Q3 2026</h3>
+            <span style="font-size:14px;color:var(--color-neutral-800)">Main Street Opportunity Fund · Jul 1 – Sep 30, 2026 · Ruleset v4 · <span class="tag tag-neutral">○ Draft</span></span>
+          </div>
+          <div style="display:flex;gap:4px;font-size:13px;max-width:880px">
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;background:var(--color-accent)"></span><a href="#8b">✓ 1 Period and fund</a></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;background:var(--color-accent)"></span><a href="#8b">✓ 2 Cash pool</a></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;font-weight:600"><span style="height:4px;background:var(--color-text)"></span><span>3 Simulate</span></span>
+            <span style="flex:1;display:flex;flex-direction:column;gap:6px;color:var(--color-neutral-700)"><span style="height:4px;background:var(--color-neutral-300)"></span><span>4 Submit for approval</span></span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <dc-import name="Cascade" mode="payout" amount="{{ simCash }}" hint-size="100%,440px"></dc-import>
+              <span style="font-size:13px;color:var(--color-neutral-800)"><span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span> Tiers step right in priority order. Solid fill is allocated; hatching is shortfall.</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:20px;font-size:14px">
+              <div style="display:flex;flex-direction:column;gap:6px;background:var(--color-surface);padding:16px">
+                <strong>Inputs</strong>
+                <span style="display:flex;justify-content:space-between"><span>Cash pool (step 2)</span><span>{{ simCashFmt }}</span></span>
+                <span style="display:flex;justify-content:space-between"><span>Ruleset</span><a href="#5a">v4 · Active</a></span>
+                <span style="display:flex;justify-content:space-between"><span>Investors</span><span>5 in 3 classes</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <strong>Per class, proposed</strong>
+                <sc-for list="{{ simClasses }}" as="c" hint-placeholder-count="4">
+                  <span style="display:flex;justify-content:space-between"><span>{{ c.k }}</span><span style="font-weight:600">{{ c.v }}</span></span>
+                </sc-for>
+                <a href="#8e" style="font-size:13px">Preview per-investor split →</a>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;padding-top:8px">
+                <span style="font-size:13px;color:var(--color-neutral-800)"><span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">2</span> Submitting sends this run to Sam Whitaker or another approver. Nothing is recorded until it is executed.</span>
+                <button class="btn btn-primary">Submit for approval</button>
+                <button class="btn btn-secondary">Back to cash pool</button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">8c · New run, step 3 Simulate · Fund administrator</span>
+        <p style="margin:0"><strong>1</strong> Cascade is the shared payout component. Switch the Tweak “Simulated cash pool” to $60,000.00 to see the shortfall state: Class B is partly paid ($15,000.00 short), Class C gets $0.00 ($20,000.00 short) and residual is $0.00.</p>
+        <p style="margin:0">A shortfall does not block submission; it is shown to the approver on the review screen with the same marking.</p>
+        <p style="margin:0"><strong>2</strong> On submit the run moves to Pending approval and the list locks (see <a href="#8a">8a</a>). Approvers see this run in their Approvals inbox and on <a href="#8d">8d</a>.</p>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- 8d approver -->
+  <div id="8d" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Fund approver</span>
+        <span style="margin-left:auto">Approvals <span class="tag tag-accent">3</span></span>
+        <span>Sam Whitaker ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navApproverRuns }}" as="it" hint-placeholder-count="10">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:28px;min-width:0">
+          <div style="display:flex;align-items:flex-end;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <a href="#8a" style="font-size:13px">← Waterfall runs</a>
+              <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">Q3 2026 run · review and execute</h3>
+              <span style="font-size:14px;color:var(--color-neutral-800)"><span class="tag tag-outline">◐ Pending approval</span> · Prepared by Dana Ortiz, Oct 3, 2026 10:14 · Ruleset <a href="#5a">v4</a></span>
+            </div>
+            <span style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+              <span style="display:flex;gap:8px"><button class="btn btn-secondary">Reject with comment</button><button class="btn btn-primary" disabled="">Execute run</button></span>
+              <span style="font-size:12px;color:var(--color-neutral-800);max-width:340px;text-align:right">Execute is unavailable: 1 reconciliation check failed. <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span></span>
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start">
+            <dc-import name="Cascade" mode="payout" amount="412350" hint-size="100%,440px"></dc-import>
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+              <strong style="font-size:16px">Reconciliation checks · 4 of 5 pass</strong>
+              <span style="display:flex;gap:10px;padding:8px 0"><span>✓</span><span>Allocations plus retained equal the cash pool: $412,350.00</span></span>
+              <span style="display:flex;gap:10px;padding:8px 0"><span>✓</span><span>Every included event is Settled</span></span>
+              <span style="display:flex;gap:10px;padding:8px 0"><span>✓</span><span>Ruleset v4 was active on Sep 30, 2026</span></span>
+              <span style="display:flex;gap:10px;padding:8px 0"><span>✓</span><span>Investor shares sum to 100.00% in each class</span></span>
+              <span style="display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--color-accent-2-100);color:var(--color-accent-2-900)">
+                <strong>✕ Fail · Cash pool matches servicer remittance</strong>
+                <span style="display:grid;grid-template-columns:auto auto;gap:2px 16px;justify-content:start"><span>Cascadia</span><span style="text-align:right">$412,350.00</span><span>LoanPro remittance</span><span style="text-align:right">$416,600.00</span><span>Difference</span><span style="text-align:right;font-weight:600">($4,250.00)</span></span>
+                <span>Likely cause: Maria's Bakery LLC payment Sep 29 is Pending in Cascadia but remitted by the servicer.</span>
+                <a href="#2" style="color:var(--color-accent-2-800)">Open event</a>
+              </span>
+              <div style="display:flex;flex-direction:column;gap:8px;padding-top:12px">
+                <strong>Comments</strong>
+                <span style="font-size:13px"><strong>Dana Ortiz</strong> · Oct 3 10:15 · Ready for review. Shortfall none; residual retained.</span>
+                <textarea class="input" rows="3" placeholder="Add a comment (required to reject)"></textarea>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:440px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">8d · Review and execute · Fund approver · reconciliation failure</span>
+        <p style="margin:0"><strong>1</strong> Any failed check disables Execute and the reason sits directly under the button. Approver can still Reject with a comment, which returns the run to Draft for Dana.</p>
+        <p style="margin:0">If Sam had prepared this run himself, the button would read “Execute run” disabled with “You prepared this run. Another approver must execute it.”</p>
+        <p style="margin:0">When all checks pass, Execute opens this confirmation:</p>
+        <div class="dialog" style="background:var(--color-bg);box-shadow:var(--shadow-lg);padding:24px;display:flex;flex-direction:column;gap:12px">
+          <strong style="font-size:18px">Execute Q3 2026 run?</strong>
+          <p style="margin:0">This records $95,000.00 in distributions to 5 investors and retains $317,350.00 for relending. Executed runs cannot be edited; a correction needs a new adjusting run.</p>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:13px">Type Q3 2026 to confirm<input class="input" value="Q3 2026"></label>
+          <span style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary">Cancel</button><button class="btn btn-primary">Execute run</button></span>
+        </div>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- 8e executed detail -->
+  <div id="8e" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Executive</span>
+        <span style="margin-left:auto">Notifications</span>
+        <span>Lee Park ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navExecRuns }}" as="it" hint-placeholder-count="8">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:36px;min-width:0">
+          <div style="display:flex;align-items:flex-end;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <a href="#8a" style="font-size:13px">← Waterfall runs</a>
+              <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">Q3 2026 run</h3>
+              <span style="font-size:14px;color:var(--color-neutral-800)"><span class="tag tag-accent">● Executed</span> Oct 4, 2026 09:02 · Ruleset <a href="#5a">v4</a> · Prepared by Dana Ortiz · Approved and executed by Sam Whitaker · <a href="#h">History</a></span>
+            </div>
+            <span style="margin-left:auto;display:flex;gap:8px"><button class="btn btn-secondary">Export PDF <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span></button></span>
+          </div>
+          <div style="display:flex;gap:56px">
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Cash pool</span><span style="font-size:24px;font-weight:600">$412,350.00</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Distributed</span><span style="font-size:24px;font-weight:600">$95,000.00</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Retained for relending</span><span style="font-size:24px;font-weight:600">$317,350.00</span></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;color:var(--color-neutral-800)">Shortfall</span><span style="font-size:24px;font-weight:600">$0.00</span></span>
+          </div>
+          <div style="max-width:900px"><dc-import name="Cascade" mode="payout" amount="412350" hint-size="100%,440px"></dc-import></div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:48px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px">Per class</strong>
+              <table class="table">
+                <thead><tr><th>Class</th><th style="text-align:right">Owed</th><th style="text-align:right">Allocated</th><th style="text-align:right">Shortfall</th></tr></thead>
+                <tbody>
+                  <tr><td>A · Senior debt</td><td style="text-align:right">$37,500.00</td><td style="text-align:right">$37,500.00</td><td style="text-align:right">$0.00</td></tr>
+                  <tr><td>B · Subordinate debt</td><td style="text-align:right">$37,500.00</td><td style="text-align:right">$37,500.00</td><td style="text-align:right">$0.00</td></tr>
+                  <tr><td>C · First-loss</td><td style="text-align:right">$20,000.00</td><td style="text-align:right">$20,000.00</td><td style="text-align:right">$0.00</td></tr>
+                  <tr><td style="font-weight:600">Total</td><td style="text-align:right;font-weight:600">$95,000.00</td><td style="text-align:right;font-weight:600">$95,000.00</td><td style="text-align:right;font-weight:600">$0.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px">Per investor · distributions to date</strong>
+              <table class="table">
+                <thead><tr><th>Investor</th><th>Class</th><th style="text-align:right">Before</th><th style="text-align:right">This run</th><th style="text-align:right">After</th></tr></thead>
+                <tbody>
+                  <tr><td>Harbor Community Foundation</td><td>A</td><td style="text-align:right">$45,000.00</td><td style="text-align:right">$22,500.00</td><td style="text-align:right">$67,500.00</td></tr>
+                  <tr><td>First Valley Bank</td><td>A</td><td style="text-align:right">$30,000.00</td><td style="text-align:right">$15,000.00</td><td style="text-align:right">$45,000.00</td></tr>
+                  <tr><td>Greenfield Family Trust</td><td>B</td><td style="text-align:right">$25,000.00</td><td style="text-align:right">$12,500.00</td><td style="text-align:right">$37,500.00</td></tr>
+                  <tr><td>Northside Impact Fund</td><td>B</td><td style="text-align:right">$50,000.00</td><td style="text-align:right">$25,000.00</td><td style="text-align:right">$75,000.00</td></tr>
+                  <tr><td>Riverbend Foundation</td><td>C</td><td style="text-align:right">$40,000.00</td><td style="text-align:right">$20,000.00</td><td style="text-align:right">$60,000.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start;font-size:14px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <strong style="font-size:16px">Inputs</strong>
+              <span style="display:flex;justify-content:space-between"><span>Settled events included</span><a href="#2">142 events · $412,350.00</a></span>
+              <span style="display:flex;justify-content:space-between"><span>Events excluded</span><a href="#8b">3 events · $10,030.00</a></span>
+              <span style="display:flex;justify-content:space-between"><span>Ruleset</span><a href="#5a">v4 · effective Jan 1, 2026</a></span>
+              <span style="display:flex;justify-content:space-between"><span>Snapshot taken</span><span>Oct 3, 2026 10:09</span></span>
+              <button class="btn btn-ghost" style="align-self:flex-start">Download input snapshot (CSV)</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <strong style="font-size:16px">Reconciliation checks · 5 of 5 pass</strong>
+              <span>✓ Allocations plus retained equal the cash pool</span>
+              <span>✓ Every included event is Settled</span>
+              <span>✓ Ruleset v4 was active on Sep 30, 2026</span>
+              <span>✓ Investor shares sum to 100.00% in each class</span>
+              <span>✓ Cash pool matches servicer remittance</span>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">8e · Executed run detail · view (Executive)</span>
+        <p style="margin:0">Same page for every viewing role. Tenant admin and executive see no action controls. Auditor additionally gets Export CSV and Re-perform (screen 15).</p>
+        <p style="margin:0"><strong>1</strong> Exports by an auditor are written to the export log.</p>
+        <p style="margin:0">After execution the per-investor split is final; corrections are a separate adjusting run linked from this header.</p>
+      </aside>
+    </sc-if>
+  </div>
+</section>
+
+<!-- ========== 5 CAPITAL STACK ========== -->
+<section id="5" data-screen-label="05 Capital stack" style="display:flex;flex-direction:column;gap:48px">
+  <h2 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:28px">5 · Capital stack and rulesets</h2>
+
+  <!-- 5a view -->
+  <div id="5a" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Executive</span>
+        <span style="margin-left:auto">Notifications</span>
+        <span>Lee Park ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navExecCap }}" as="it" hint-placeholder-count="8">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:32px;min-width:0">
+          <div style="display:flex;align-items:flex-end;gap:16px">
+            <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">Capital stack</h3>
+            <span style="margin-left:auto;display:flex;gap:8px"><button class="btn btn-secondary">Compare versions</button></span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+            <sc-for list="{{ classes }}" as="c" hint-placeholder-count="3">
+              <div class="card" style="gap:10px">
+                <span style="display:flex;justify-content:space-between;align-items:baseline"><strong style="font-size:20px">{{ c.name }}</strong><span style="font-size:13px">{{ c.type }}</span></span>
+                <span style="font-size:24px;font-weight:600">{{ c.capital }}</span>
+                <span style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:13px">
+                  <span>Target rate</span><span style="text-align:right">{{ c.rate }}</span>
+                  <span>Investors</span><span style="text-align:right">{{ c.investors }}</span>
+                  <span>Payout rank</span><span style="text-align:right">{{ c.payout }}</span>
+                  <span>Loss rank</span><span style="text-align:right">{{ c.loss }}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 300px;gap:40px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px;color:var(--color-accent-800)">Payout order · who is paid first</strong>
+              <sc-for list="{{ payoutTiers }}" as="t" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;align-items:center;padding:12px 14px;background:var(--color-accent-100)">
+                  <span style="width:24px;height:24px;flex:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600;background:var(--color-bg);color:var(--color-accent-800)">{{ t.n }}</span>
+                  <span style="display:flex;flex-direction:column;flex:1"><strong>{{ t.cls }}</strong><span style="font-size:13px">{{ t.type }}</span></span>
+                  <span style="font-weight:600">{{ t.rate }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px;color:var(--color-accent-2-800)">Loss order · who absorbs losses first</strong>
+              <sc-for list="{{ lossTiers }}" as="t" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:center;padding:12px 14px;background:var(--color-accent-2-100)">
+                  <span style="width:24px;height:24px;flex:none;display:inline-flex;align-items:center;justify-content:center;font-weight:600;background:var(--color-bg);color:var(--color-accent-2-800)">{{ t.n }}</span>
+                  <span style="display:flex;flex-direction:column;flex:1"><strong>{{ t.cls }}</strong><span style="font-size:13px">{{ t.type }}</span></span>
+                  <span style="font-weight:600">{{ t.rate }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <aside style="display:flex;flex-direction:column;gap:12px;font-size:14px;background:var(--color-surface);padding:20px">
+              <span style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:17px">Ruleset v4</strong><span class="tag tag-accent">● Active</span></span>
+              <span>Effective Jan 1, 2026</span>
+              <span>Source agreement: <a href="#doc">Main Street Fund LPA, amended Dec 2025.pdf</a></span>
+              <span>Approved by Sam Whitaker, Dec 18, 2025</span>
+              <strong style="padding-top:8px">Version history</strong>
+              <span style="display:flex;justify-content:space-between"><span>v5 · Oct 3, 2026</span><span class="tag tag-outline">◐ Pending</span></span>
+              <span style="display:flex;justify-content:space-between"><span>v4 · Jan 1, 2026</span><span class="tag tag-accent">● Active</span></span>
+              <span style="display:flex;justify-content:space-between"><span>v3 · Jul 1, 2025</span><span class="tag tag-neutral">Superseded</span></span>
+              <span style="display:flex;justify-content:space-between"><span>v2 · Jan 1, 2025</span><span class="tag tag-neutral">Superseded</span></span>
+              <a href="#h">History</a>
+            </aside>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">5a · View · Executive, Tenant admin, Auditor</span>
+        <p style="margin:0">Payout and loss orders sit side by side in cool and warm tones, matching the two cascades. Class C is last to be paid and first to absorb.</p>
+        <p style="margin:0">Viewers get Compare versions only. Fund administrators additionally see Edit draft; approvers see Review v5 when a version is pending.</p>
+        <p style="margin:0">Clicking any past version opens it read-only with a Compare to active link.</p>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- 5b edit -->
+  <div id="5b" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Fund administrator</span>
+        <span style="margin-left:auto">Notifications <span class="tag tag-accent">2</span></span>
+        <span>Dana Ortiz ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navMakerCap }}" as="it" hint-placeholder-count="10">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:28px;min-width:0">
+          <div style="display:flex;align-items:flex-end;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">Edit ruleset · draft v5</h3>
+              <span style="font-size:14px;color:var(--color-neutral-800)"><span class="tag tag-neutral">○ Draft</span> · based on v4 Active · autosaved 10:41</span>
+            </div>
+            <span style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+              <span style="display:flex;gap:8px"><button class="btn btn-ghost">Discard draft</button><button class="btn btn-primary" disabled="">Submit for approval</button></span>
+              <span style="font-size:12px;color:var(--color-neutral-800)">Fix 1 issue before submitting <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">3</span></span>
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.8fr);gap:36px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px;color:var(--color-accent-800)">Payout order <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span></strong>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-100);font-size:14px"><span style="cursor:grab">⋮⋮</span><strong>1</strong><span style="flex:1">Class A ▾ · Preferred return ▾</span><input class="input" style="width:80px;text-align:right" value="3.00%"><span>✕</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-100);font-size:14px"><span style="cursor:grab">⋮⋮</span><strong>2</strong><span style="flex:1">Class B ▾ · Preferred return ▾</span><input class="input" style="width:80px;text-align:right" value="5.00%"><span>✕</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-100);font-size:14px"><span style="cursor:grab">⋮⋮</span><strong>3</strong><span style="flex:1">Class C ▾ · Preferred return ▾</span><input class="input" style="width:80px;text-align:right;font-weight:600" value="7.50%"><span>✕</span></div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:var(--color-accent-2-100);font-size:14px">
+                <span style="display:flex;gap:10px;align-items:center"><span style="cursor:grab">⋮⋮</span><strong>4</strong><span style="flex:1">Class B ▾ · Preferred return ▾</span><input class="input" style="width:80px;text-align:right" value="5.00%"><span>✕</span></span>
+                <span style="font-size:13px;color:var(--color-accent-2-900);font-weight:600">▲ Duplicate: Class B preferred return is already tier 2. <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">2</span></span>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-100);font-size:14px"><span style="cursor:grab">⋮⋮</span><strong>5</strong><span style="flex:1">Residual ▾ · retained for relending</span><span>✕</span></div>
+              <button class="btn btn-ghost" style="align-self:flex-start">+ Add tier</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <strong style="font-size:16px;color:var(--color-accent-2-800)">Loss order</strong>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-2-100);font-size:14px"><span>⋮⋮</span><strong>1</strong><span style="flex:1">Class C ▾ · up to capital</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-2-100);font-size:14px"><span>⋮⋮</span><strong>2</strong><span style="flex:1">Class B ▾ · up to capital</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--color-accent-2-100);font-size:14px"><span>⋮⋮</span><strong>3</strong><span style="flex:1">Class A ▾ · up to capital</span></div>
+              <label style="display:flex;flex-direction:column;gap:4px;font-size:13px;padding-top:16px">Effective date<input class="input" value="Oct 1, 2026"></label>
+              <label style="display:flex;flex-direction:column;gap:4px;font-size:13px">Source agreement<span style="font-size:14px"><a href="#doc">Class C side letter, Sep 2026.pdf</a> · Replace</span></label>
+            </div>
+            <div style="grid-column:1 / -1;display:grid;grid-template-columns:240px minmax(0,1fr);gap:36px;align-items:start;background:var(--color-surface);padding:24px">
+              <div style="display:flex;flex-direction:column;gap:12px">
+              <strong style="font-size:16px">Simulate</strong>
+              <label style="display:flex;flex-direction:column;gap:4px;font-size:13px">Sample cash amount<input class="input" value="$60,000.00"></label>
+              <span style="font-size:12px;color:var(--color-neutral-800)">Simulation uses tiers 1–3 and residual; the duplicate tier is skipped until fixed.</span>
+              </div>
+              <dc-import name="Cascade" mode="payout" amount="60000" class-c-rate="7.5" hint-size="100%,420px"></dc-import>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">5b · Edit mode · Fund administrator</span>
+        <p style="margin:0"><strong>1</strong> Drag handles reorder tiers; tier numbers renumber live. Keyboard: focus a tier, Alt + ↑/↓ moves it.</p>
+        <p style="margin:0"><strong>2</strong> Inline validation runs on every change: gaps in numbering, duplicate tiers, a class missing from either order, and rates outside 0–25%.</p>
+        <p style="margin:0"><strong>3</strong> Submit stays disabled with a count of open issues. When clean, Submit opens the before/after diff (<a href="#5c">5c</a>) for a final check before sending.</p>
+        <p style="margin:0">Simulate spans the full width below both orders so the cascade keeps its standard layout at 1440 and 1024 px.</p>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- 5c approver -->
+  <div id="5c" style="display:flex;gap:32px;align-items:flex-start">
+    <div style="width:1440px;flex:none;background:var(--color-bg);box-shadow:var(--shadow-md)">
+      <div style="display:flex;align-items:center;gap:20px;height:56px;padding:0 24px;background:var(--color-surface);font-size:13px">
+        <span style="font-family:var(--font-heading);font-weight:600;font-size:18px;width:172px">Cascadia</span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Tenant</span><span style="font-weight:600">Riverbend CDFI ▾</span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Fund</span><span style="font-weight:600">Main Street Opportunity Fund ▾</span></span>
+        <span class="tag tag-neutral">Role · Fund approver</span>
+        <span style="margin-left:auto">Approvals <span class="tag tag-accent">3</span></span>
+        <span>Sam Whitaker ▾</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <nav style="background:var(--color-surface);padding:16px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px">
+          <sc-for list="{{ navApproverCap }}" as="it" hint-placeholder-count="10">
+            <span style="display:flex;justify-content:space-between;padding:7px 12px;border-radius:var(--radius-md);background:{{ it.bg }};font-weight:{{ it.w }}"><span>{{ it.label }}</span><span>{{ it.count }}</span></span>
+          </sc-for>
+        </nav>
+        <main style="padding:32px 40px 48px;display:flex;flex-direction:column;gap:28px;min-width:0">
+          <div style="display:flex;align-items:flex-end;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <a href="#5a" style="font-size:13px">← Capital stack</a>
+              <h3 style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:30px">Review ruleset v5</h3>
+              <span style="font-size:14px;color:var(--color-neutral-800)"><span class="tag tag-outline">◐ Pending approval</span> · Submitted by Dana Ortiz, Oct 3, 2026 10:52</span>
+            </div>
+            <span style="margin-left:auto;display:flex;gap:8px"><button class="btn btn-secondary">Reject</button><button class="btn btn-primary">Approve v5</button></span>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <strong style="font-size:16px">What changes</strong>
+                <table class="table">
+                  <thead><tr><th>Field</th><th>Before · v4 Active</th><th>After · v5</th></tr></thead>
+                  <tbody>
+                    <tr><td>Tier 3 · Class C preferred return</td><td style="text-decoration:line-through;color:var(--color-neutral-700)">8.00%</td><td style="font-weight:600;background:var(--color-accent-100)">7.50%</td></tr>
+                    <tr><td>Effective date</td><td style="text-decoration:line-through;color:var(--color-neutral-700)">Jan 1, 2026</td><td style="font-weight:600;background:var(--color-accent-100)">Oct 1, 2026</td></tr>
+                    <tr><td>Source agreement</td><td style="color:var(--color-neutral-700)">LPA, amended Dec 2025</td><td style="font-weight:600;background:var(--color-accent-100)"><a href="#doc">+ Class C side letter, Sep 2026</a></td></tr>
+                    <tr><td>Tiers 1, 2, 4 · Loss order</td><td colspan="2" style="color:var(--color-neutral-700)">Unchanged</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <strong style="font-size:16px">Effect at the Q3 2026 cash pool ($412,350.00) <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">1</span></strong>
+                <table class="table">
+                  <thead><tr><th>Tier</th><th style="text-align:right">v4</th><th style="text-align:right">v5</th><th style="text-align:right">Change</th></tr></thead>
+                  <tbody>
+                    <tr><td>3 · Class C preferred return</td><td style="text-align:right">$20,000.00</td><td style="text-align:right">$18,750.00</td><td style="text-align:right">($1,250.00)</td></tr>
+                    <tr><td>4 · Residual retained</td><td style="text-align:right">$317,350.00</td><td style="text-align:right">$318,600.00</td><td style="text-align:right">$1,250.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
+              <strong style="font-size:16px">Comments</strong>
+              <span><strong>Dana Ortiz</strong> · Oct 3 10:52<br>Per the side letter signed Sep 24, Class C target drops to 7.50% from Q4.</span>
+              <label style="display:flex;flex-direction:column;gap:4px;font-size:13px">Comment (required to reject)<textarea class="input" rows="4" placeholder="Explain what needs to change"></textarea></label>
+              <div style="display:flex;flex-direction:column;gap:8px;background:var(--color-surface);padding:16px;margin-top:16px">
+                <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Variant · viewer is the submitter <span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--color-text);color:var(--color-bg);font-size:11px;align-items:center;justify-content:center">2</span></span>
+                <span style="display:flex;gap:8px"><button class="btn btn-secondary" disabled="">Reject</button><button class="btn btn-primary" disabled="">Approve v5</button></span>
+                <span style="font-size:13px">You submitted this version. Another approver must review it.</span>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+      <aside style="width:340px;flex:none;display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.45">
+        <span style="align-self:flex-start;font-size:12px;font-weight:600;background:var(--color-text);color:var(--color-bg);padding:3px 8px">5c · Approver review · diff</span>
+        <p style="margin:0"><strong>1</strong> The diff is paired with a money effect at the most recent cash pool, so the approver sees impact in dollars, not just rates.</p>
+        <p style="margin:0">Reject requires a comment; the draft returns to Dana with the comment pinned. Approve sets v5 to Active on its effective date and v4 to Superseded.</p>
+        <p style="margin:0"><strong>2</strong> A user who is both maker and checker on this fund sees disabled actions with the reason, never hidden ones.</p>
+      </aside>
+    </sc-if>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;simCash&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[412350,60000],&quot;default&quot;:412350,&quot;tsType&quot;:&quot;number&quot;},&quot;lossAmount&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[120000,1150000],&quot;default&quot;:1150000,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const f = n => { const s = Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); return n < 0 ? '($' + s + ')' : '$' + s; };
+    const navs = {
+      maker: [['Dashboard'], ['Servicing events'], ['Unmatched events', '4'], ['Loan portfolio'], ['Capital stack'], ['Investors'], ['Approvals', '1'], ['Waterfall runs'], ['Loss runs'], ['Reports']],
+      approver: [['Approvals', '3'], ['Dashboard'], ['Servicing events'], ['Loan portfolio'], ['Capital stack'], ['Investors'], ['Waterfall runs'], ['Loss runs'], ['Reports'], ['Audit log']],
+      exec: [['Dashboard'], ['Loan portfolio'], ['Servicing events'], ['Capital stack'], ['Investors'], ['Waterfall runs'], ['Loss runs'], ['Reports']]
+    };
+    const nav = (role, active) => navs[role].map(([label, count]) => ({ label, count: count || '', bg: label === active ? 'var(--color-bg)' : 'transparent', w: label === active ? 600 : 400 }));
+    const simCash = Number(this.props.simCash ?? 412350);
+    let rem = simCash;
+    const simClasses = [['Class A', 37500], ['Class B', 37500], ['Class C', 20000]].map(([k, o]) => { const a = Math.min(rem, o); rem -= a; return { k, v: f(a) }; });
+    simClasses.push({ k: 'Retained', v: f(rem) });
+    return {
+      showNotes: this.props.showNotes ?? true,
+      lossAmount: Number(this.props.lossAmount ?? 1150000),
+      simCash, simCashFmt: f(simCash), simClasses,
+      navMakerRuns: nav('maker', 'Waterfall runs'), navMakerCap: nav('maker', 'Capital stack'),
+      navApproverRuns: nav('approver', 'Waterfall runs'), navApproverCap: nav('approver', 'Capital stack'),
+      navExecRuns: nav('exec', 'Waterfall runs'), navExecCap: nav('exec', 'Capital stack'),
+      classes: [
+        { name: 'Class A', type: 'Senior debt', capital: '$5,000,000.00', rate: '3.00%', investors: '2', payout: '1st', loss: '3rd' },
+        { name: 'Class B', type: 'Subordinate debt', capital: '$3,000,000.00', rate: '5.00%', investors: '2', payout: '2nd', loss: '2nd' },
+        { name: 'Class C', type: 'First-loss capital', capital: '$1,000,000.00', rate: '8.00%', investors: '1', payout: '3rd', loss: '1st' }
+      ],
+      payoutTiers: [
+        { n: 1, cls: 'Class A', type: 'Preferred return', rate: '3.00%' },
+        { n: 2, cls: 'Class B', type: 'Preferred return', rate: '5.00%' },
+        { n: 3, cls: 'Class C', type: 'Preferred return', rate: '8.00%' },
+        { n: 4, cls: 'Residual', type: 'Retained for relending', rate: 'None' }
+      ],
+      lossTiers: [
+        { n: 1, cls: 'Class C', type: 'Absorbs up to its capital', rate: '$1,000,000.00' },
+        { n: 2, cls: 'Class B', type: 'Absorbs up to its capital', rate: '$3,000,000.00' },
+        { n: 3, cls: 'Class A', type: 'Absorbs up to its capital', rate: '$5,000,000.00' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
