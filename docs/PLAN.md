@@ -25,7 +25,7 @@ This is the working plan. Claude Code reads it before each session and updates i
 | 0.1 | Calculation prototype: a script that applies the partner's class terms to one past period | Partner's class terms and one period of payments | Output matches the distribution they actually paid, to the cent | S | Todo | |
 | 0.2 | Golden-case library: past runs converted to fixtures with inputs and expected outputs | 0.1 | Three or more cases are checked into `golden-cases/` | S | Todo | |
 | 0.3 | Clickable UI prototype of capital stack configuration and run detail, on mock data | Design handoff | The partner has walked through it and given feedback | M | Todo | |
-| 0.4 | Repo skeleton: structure, CLAUDE.md, lint, test runner, CI | Stack decided (Django) | CI passes on the empty project | S | In progress | |
+| 0.4 | Repo skeleton: structure, CLAUDE.md, lint, test runner, CI | Stack decided (Django) | CI passes on the empty project | S | In review | [#1](https://github.com/Mikay8/cascadia/pull/1) |
 | 0.5 | AI ruleset drafting experiment: a script that sends the agreement to a model and compares its draft with a human-built ruleset | 0.2, the partner's agreement | A written comparison logs every difference and the accuracy | S | Todo | |
 
 Human-only work in this phase: customer interviews, the partner's data and agreements, checking the model provider's data-retention and tenant opt-out terms before sending any partner document, and closing the open decisions.
