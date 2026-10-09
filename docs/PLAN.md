@@ -41,7 +41,7 @@ Human-only work in this phase: customer interviews, the partner's data and agree
 
 | ID | Increment | Depends on | Done when | Size | Status | PR |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1.1 | Docker setup and a staging environment on Railway | 0.4 | A hello-world service deploys to staging on merge | S | Todo | |
+| 1.1 | Docker setup and a staging environment on Railway | 0.4 | A hello-world service deploys to staging on merge | S | In progress | [#4](https://github.com/Mikay8/cascadia/pull/4) |
 | 1.2 | Tenant provisioning: schema-per-tenant creation and the migration runner, using django-tenants if it checks out | 1.1 | Creating a tenant creates its schema and applies all migrations | M | Todo | |
 | 1.3 | Core tables and seed data | 1.2 | A seed script loads three fake tenants with funds, classes, investors, and loans | M | Todo | |
 | 1.4 | Authentication with MFA and short sessions | 1.1 | Login with MFA works on staging | M | Todo | |

@@ -11,9 +11,9 @@ Version 1 tracks and reports. It does not move money.
 | Layer | Choice |
 | --- | --- |
 | Back end | Python 3.12, Django 5.2 LTS, Celery (from increment 3.2) |
-| Database | PostgreSQL 17, one schema per tenant |
+| Database | PostgreSQL 18, one schema per tenant |
 | Front end | React 19 with Vite, plain JavaScript |
-| Hosting | Railway, staging and production (from increment 1.1) |
+| Hosting | Railway staging (production later), kept portable to AWS; see `docs/INFRASTRUCTURE.md` |
 
 ## Getting started
 
@@ -21,7 +21,7 @@ Version 1 tracks and reports. It does not move money.
 
 - Python 3.12
 - Node 22
-- PostgreSQL 17, for the back-end tests that use the database. Docker Compose will provide it from increment 1.1; until then, run Postgres yourself or rely on CI.
+- Docker, to run the full stack with `docker compose up` (Postgres 18, Django, and Vite). Without Docker, run PostgreSQL 18 yourself for the back-end tests that use the database.
 
 Copy [`.env.example`](.env.example) to `.env` and fill in local values. Never commit `.env` or any real credentials.
 

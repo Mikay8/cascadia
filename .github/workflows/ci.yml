@@ -16,7 +16,7 @@ jobs:
         working-directory: backend
     services:
       postgres:
-        image: postgres:17
+        image: postgres:18
         env:
           POSTGRES_USER: cascadia
           POSTGRES_PASSWORD: cascadia
@@ -61,3 +61,45 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run build-storybook
+
+  docker:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: cascadia
+          POSTGRES_PASSWORD: cascadia
+          POSTGRES_DB: cascadia
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U cascadia"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t cascadia-backend backend
+      - run: docker build -t cascadia-frontend frontend
+      - name: Smoke test the back-end image
+        run: |
+          docker run -d --name api --network host \
+            -e DJANGO_SECRET_KEY=ci-only \
+            -e DATABASE_URL=postgres://cascadia:cascadia@localhost:5432/cascadia \
+            -e DJANGO_ALLOWED_HOSTS=localhost \
+            -e PORT=8000 \
+            cascadia-backend
+          for i in $(seq 1 30); do curl -fsS http://localhost:8000/healthz && break; sleep 2; done
+          curl -fsS http://localhost:8000/healthz | grep -q '"ok"'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/admin/)" = "301"
+      - name: Back-end logs
+        if: always()
+        run: docker logs api || true
+      - name: Smoke test the front-end image
+        run: |
+          docker run -d --name web -p 8080:8080 cascadia-frontend
+          for i in $(seq 1 15); do curl -fsS http://localhost:8080/healthz && break; sleep 1; done
+          curl -fsS http://localhost:8080/ | grep -q '<div id="root">'
+          curl -fsS http://localhost:8080/some/deep/link | grep -q '<div id="root">'
+          curl -sI http://localhost:8080/ | grep -qi 'x-frame-options: deny'
