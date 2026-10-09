@@ -48,7 +48,7 @@ Human-only work in this phase: customer interviews, the partner's data and agree
 | 1.5 | Roles, permission checks, and the maker-checker mechanism | 1.3, 1.4 | The role matrix in `ROLES.md` is enforced by automated tests | M | Todo | |
 | 1.6 | Audit log on every write | 1.3 | Every API write produces an audit row | S | Todo | |
 | 1.7 | Tenant isolation test suite | 1.2, 1.5 | Every cross-tenant access attempt fails | S | Todo | |
-| 1.8 | Design tokens and component library with Storybook | Design handoff | Each component matches the handoff and has empty and loading states | L | Todo | |
+| 1.8 | Design tokens and component library with Storybook | Design handoff | Each component matches the handoff and has empty and loading states | L | In progress | |
 | 1.9 | Production database hardening on Railway: private networking, point-in-time recovery, high availability, restore drill | 1.2 | A restore drill is recorded with its recovery time | S | Todo | |
 | 1.10 | AI guardrails: AI actor, audit fields, per-tenant switch, untrusted-input handling | 1.5, 1.6 | Tests show an AI actor cannot approve or execute, and every AI action is logged with its model and sources | M | Todo | |
 

@@ -1,12 +1,13 @@
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import storybook from 'eslint-plugin-storybook';
 import globals from 'globals';
 
 import noHardcodedColors from './eslint-rules/no-hardcoded-colors.js';
 
 export default [
-  { ignores: ['dist', 'coverage', 'storybook-static'] },
+  { ignores: ['dist', 'coverage', 'storybook-static', '!.storybook'] },
   js.configs.recommended,
   {
     files: ['**/*.{js,jsx}'],
@@ -30,6 +31,7 @@ export default [
       'cascadia/no-hardcoded-colors': 'error',
     },
   },
+  ...storybook.configs['flat/recommended'],
   {
     files: ['tokens/**', 'eslint-rules/**'],
     rules: { 'cascadia/no-hardcoded-colors': 'off' },

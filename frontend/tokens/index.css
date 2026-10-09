@@ -1,0 +1,8 @@
+/* Entry point for the design tokens. Order matters: ramps, then roles, then scales. */
+@import url("@fontsource/source-serif-4/400.css");
+@import url("@fontsource/source-serif-4/400-italic.css");
+@import url("@fontsource/source-serif-4/600.css");
+@import url("./ramp.css");
+@import url("./theme.css");
+@import url("./scale.css");
+@import url("./base.css");

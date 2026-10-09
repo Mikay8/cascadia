@@ -1,0 +1,60 @@
+.stepper {
+  display: flex;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  font-size: var(--cs-type-small-size);
+  line-height: var(--cs-type-small-line);
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.bar {
+  height: var(--cs-stepper-bar);
+}
+
+.done .bar {
+  background: var(--cs-primary);
+}
+
+.current {
+  font-weight: var(--cs-weight-bold);
+}
+
+.current .bar {
+  background: var(--cs-text);
+}
+
+.todo {
+  color: var(--cs-muted);
+}
+
+.todo .bar {
+  background: var(--cs-rule);
+}
+
+.link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cs-link);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

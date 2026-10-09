@@ -1,0 +1,26 @@
+/* Global element defaults. Loaded once by the app and by Storybook. */
+
+body {
+  margin: 0;
+  background: var(--cs-bg);
+  color: var(--cs-text);
+  font-family: var(--cs-font);
+  font-size: var(--cs-type-body-size);
+  line-height: var(--cs-type-body-line);
+
+  /* All figures use tabular lining numerals so money columns align. */
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+a {
+  color: var(--cs-link);
+}
+
+a:hover {
+  color: var(--cs-primary-hover);
+}
+
+:focus-visible {
+  outline: var(--cs-focus-width) solid var(--cs-primary);
+  outline-offset: var(--cs-focus-offset);
+}

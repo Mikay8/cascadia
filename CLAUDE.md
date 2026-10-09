@@ -23,12 +23,13 @@ ruff check . && ruff format .         # back-end lint and format
 python manage.py makemigrations --check --dry-run   # fails if a migration is missing
 npm install                           # front-end setup, Node 22
 npm test                              # front-end tests
-npm run lint                          # front-end lint (includes the no-hardcoded-colors rule)
+npm run lint                          # front-end lint (no hardcoded colors or sizes in JS or CSS)
 npm run build                         # front-end production build
+npm run storybook                     # component library preview
 gh pr create                          # open a pull request (GitHub CLI)
 ```
 
-Coming later: `docker compose up` for the full local stack, including Postgres (increment 1.1), and `npm run storybook` (increment 1.8).
+Coming later: `docker compose up` for the full local stack, including Postgres (increment 1.1).
 
 ## Hard rules
 

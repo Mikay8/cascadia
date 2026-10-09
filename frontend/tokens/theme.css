@@ -1,0 +1,100 @@
+/*
+ * Cascadia color roles (docs/design-handoff/Cascadia Style Guide.dc.html).
+ * Each role points at a ramp step; light and dark swap the pointers and nothing else.
+ *
+ * Roles under "added" are not in the style guide. The wireframes use these ramp steps
+ * directly (banners, badges, markers), so they are named here for designer review.
+ */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --cs-bg: var(--color-bg);
+  --cs-surface: var(--color-surface);
+  --cs-raised: var(--color-neutral-100);
+  --cs-text: var(--color-text);
+  --cs-muted: var(--color-neutral-700);
+  --cs-rule: var(--color-neutral-300);
+  --cs-link: var(--color-accent-700);
+  --cs-primary: var(--color-accent);
+  --cs-primary-hover: var(--color-accent-600);
+  --cs-on-primary: var(--color-bg);
+  --cs-payout: var(--color-accent-500);
+  --cs-payout-tint: var(--color-accent-100);
+  --cs-payout-ink: var(--color-accent-800);
+  --cs-loss: var(--color-accent-2-500);
+  --cs-loss-tint: var(--color-accent-2-100);
+  --cs-loss-ink: var(--color-accent-2-800);
+
+  /* added */
+  --cs-neutral-tint: var(--color-neutral-200);
+  --cs-loss-strong: var(--color-accent-2-700);
+  --cs-on-loss-strong: var(--color-bg);
+  --cs-inverse: var(--color-text);
+  --cs-on-inverse: var(--color-bg);
+  --cs-shadow-sm: var(--shadow-sm);
+  --cs-shadow-md: var(--shadow-md);
+  --cs-shadow-lg: var(--shadow-lg);
+}
+
+/* Dark mode: elevation comes from a lighter surface step instead of a shadow. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --cs-bg: var(--color-text);
+  --cs-surface: var(--color-neutral-900);
+  --cs-raised: var(--color-neutral-800);
+  --cs-text: var(--color-neutral-100);
+  --cs-muted: var(--color-neutral-400);
+  --cs-rule: var(--color-neutral-800);
+  --cs-link: var(--color-accent-300);
+  --cs-primary: var(--color-accent-400);
+  --cs-primary-hover: var(--color-accent-300);
+  --cs-on-primary: var(--color-accent-900);
+  --cs-payout: var(--color-accent-400);
+  --cs-payout-tint: var(--color-accent-900);
+  --cs-payout-ink: var(--color-accent-200);
+  --cs-loss: var(--color-accent-2-400);
+  --cs-loss-tint: var(--color-accent-2-900);
+  --cs-loss-ink: var(--color-accent-2-200);
+
+  --cs-neutral-tint: var(--color-neutral-800);
+  --cs-loss-strong: var(--color-accent-2-300);
+  --cs-on-loss-strong: var(--color-accent-2-900);
+  --cs-inverse: var(--color-neutral-100);
+  --cs-on-inverse: var(--color-text);
+  --cs-shadow-sm: none;
+  --cs-shadow-md: none;
+  --cs-shadow-lg: none;
+}
+
+/* System mode: follow the OS unless the user picked Light. Keep in sync with the block above. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --cs-bg: var(--color-text);
+    --cs-surface: var(--color-neutral-900);
+    --cs-raised: var(--color-neutral-800);
+    --cs-text: var(--color-neutral-100);
+    --cs-muted: var(--color-neutral-400);
+    --cs-rule: var(--color-neutral-800);
+    --cs-link: var(--color-accent-300);
+    --cs-primary: var(--color-accent-400);
+    --cs-primary-hover: var(--color-accent-300);
+    --cs-on-primary: var(--color-accent-900);
+    --cs-payout: var(--color-accent-400);
+    --cs-payout-tint: var(--color-accent-900);
+    --cs-payout-ink: var(--color-accent-200);
+    --cs-loss: var(--color-accent-2-400);
+    --cs-loss-tint: var(--color-accent-2-900);
+    --cs-loss-ink: var(--color-accent-2-200);
+
+    --cs-neutral-tint: var(--color-neutral-800);
+    --cs-loss-strong: var(--color-accent-2-300);
+    --cs-on-loss-strong: var(--color-accent-2-900);
+    --cs-inverse: var(--color-neutral-100);
+    --cs-on-inverse: var(--color-text);
+    --cs-shadow-sm: none;
+    --cs-shadow-md: none;
+    --cs-shadow-lg: none;
+  }
+}

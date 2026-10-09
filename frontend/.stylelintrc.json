@@ -1,0 +1,13 @@
+{
+  "ignoreFiles": ["dist/**", "storybook-static/**", "coverage/**", "tokens/**"],
+  "rules": {
+    "color-no-hex": true,
+    "color-named": "never",
+    "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch", "color"],
+    "declaration-property-unit-disallowed-list": {
+      "/^(margin|padding|gap|row-gap|column-gap|inset|top|right|bottom|left)/": ["px", "rem", "em"],
+      "/^(font-size|line-height|letter-spacing|border-radius|box-shadow)$/": ["px", "rem", "em"]
+    },
+    "declaration-no-important": true
+  }
+}
