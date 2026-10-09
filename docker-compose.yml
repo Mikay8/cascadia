@@ -2,7 +2,7 @@
 # Seed data only (hard rule 8). Run with `docker compose up`.
 services:
   db:
-    image: postgres:17
+    image: postgres:18
     environment:
       POSTGRES_USER: cascadia
       POSTGRES_PASSWORD: cascadia
@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U cascadia"]
       interval: 5s

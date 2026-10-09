@@ -16,7 +16,7 @@ jobs:
         working-directory: backend
     services:
       postgres:
-        image: postgres:17
+        image: postgres:18
         env:
           POSTGRES_USER: cascadia
           POSTGRES_PASSWORD: cascadia
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:17
+        image: postgres:18
         env:
           POSTGRES_USER: cascadia
           POSTGRES_PASSWORD: cascadia

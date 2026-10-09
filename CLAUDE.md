@@ -2,7 +2,7 @@
 
 Cascadia is a multi-tenant web app for CDFIs (community development financial institutions). It tracks investor capital in ranked classes (A, B, C), ingests loan activity from a servicing provider, and calculates how loan repayments (the waterfall) and losses (the loss waterfall) are allocated across those classes. Funds are revolving, so runs happen every month or quarter. Version 1 tracks and reports; it does not move money.
 
-**Stack:** Python 3.12 with Django 5.2 LTS (back end), Celery (queue), PostgreSQL 17 (schema-per-tenant), plain JavaScript with React 19 and Vite (front end), hosted on Railway for build and pilot.
+**Stack:** Python 3.12 with Django 5.2 LTS (back end), Celery (queue), PostgreSQL 18 (schema-per-tenant), plain JavaScript with React 19 and Vite (front end), hosted on Railway for build and pilot.
 
 > This file is read at the start of every session. Keep it short. Put detail in `docs/` and link to it. Update it when a command, rule, or folder changes.
 
@@ -29,7 +29,7 @@ npm run storybook                     # component library preview
 gh pr create                          # open a pull request (GitHub CLI)
 ```
 
-Coming later: `docker compose up` for the full local stack, including Postgres (increment 1.1).
+`docker compose up` from the repo root runs the full local stack (Postgres 18, Django, Vite). Deployment and hosting are in `docs/INFRASTRUCTURE.md`.
 
 ## Hard rules
 
@@ -73,12 +73,13 @@ A human reviews every pull request, and must review these closely: calculation e
 - Business logic lives in service modules, not in views or models.
 - Every API write produces an audit entry.
 - Permission checks follow the role matrix in `docs/ROLES.md`.
+- Infrastructure stays portable to AWS: plain Dockerfiles, env-var config, no Railway-only features in code. Rules are in `docs/INFRASTRUCTURE.md`.
 
 ## Repo map
 
 ```
 CLAUDE.md                  this file
-docs/                      PLAN.md, DECISIONS.md, ROLES.md (to be written), design-handoff/
+docs/                      PLAN.md, DECISIONS.md, INFRASTRUCTURE.md, ROLES.md (to be written), design-handoff/
 backend/                   Django project (has its own CLAUDE.md)
   config/settings/         base, dev, test, production settings
   config/urls.py           routes; /healthz is the liveness check
@@ -90,7 +91,7 @@ frontend/                  React app (has its own CLAUDE.md)
   eslint-rules/            local lint rules, including no-hardcoded-colors
 golden-cases/              partner fixtures shared by back-end tests
 .github/                   CI workflow and pull request template
-docker-compose.yml         local stack (increment 1.1)
+docker-compose.yml         local stack; each service also has its own Dockerfile
 .env.example               environment variable names, no values
 ```
 
