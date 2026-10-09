@@ -19,7 +19,11 @@ A running log of choices. Claude Code checks it before assuming anything and upd
 
 | Decision | Recommendation | Notes |
 | --- | --- | --- |
-| Toolchain versions | Python 3.12, PostgreSQL 17, Node 22, Vite 8, Vitest 5, ESLint 9 | Set in 0.4. ESLint 10 waits for eslint-plugin-react support |
+| Toolchain versions | Python 3.12, PostgreSQL 17, Node 22, Vite 8, Vitest 5, ESLint 9, Storybook 10 | Set in 0.4 and 1.8. ESLint 10 waits for eslint-plugin-react support |
+| Front-end styling | CSS Modules reading CSS custom properties from `frontend/tokens/`; Stylelint bans literal colors and sizes outside tokens | Set in 1.8. No CSS-in-JS or utility framework |
+| Placeholder color ramps | Approximate Broadsheet ramps in `frontend/tokens/ramp.css` until the real Broadsheet styles are exported | Set in 1.8. All text pairs checked at WCAG AA 4.5:1. Swap before design sign-off |
+| Extra color roles | `--cs-neutral-tint`, `--cs-loss-strong`, `--cs-on-loss-strong`, `--cs-inverse`, `--cs-on-inverse` | Set in 1.8. The wireframes use these ramp steps directly; designer to confirm or rename |
+| Spacing steps 7 and 8 | 60 px and 80 px | Set in 1.8. The style guide names `--space-1` to `-8` but lists only six values |
 | Multi-tenancy | Schema-per-tenant in PostgreSQL | Confirm before increment 1.2; expensive to change later |
 | Tenant provisioning package | django-tenants | Verify it is maintained and supports the Django and Postgres versions in use before 1.2 |
 | Hosting for build and pilot | Railway Pro, with staging and production environments | Revisit at the go-live review: stay, move to AWS, or negotiate Railway Enterprise. Stay containerized and avoid Railway-specific features |

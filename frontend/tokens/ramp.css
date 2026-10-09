@@ -1,0 +1,50 @@
+/*
+ * Base ramps: PLACEHOLDER values standing in for the Broadsheet design system.
+ *
+ * The handoff (docs/design-handoff/) points every Cascadia role at a Broadsheet ramp step,
+ * but Broadsheet's styles.css was not part of the handoff. These values approximate its
+ * description: paper ground, warm neutrals, a cyan spot color (accent) and a magenta one
+ * (accent-2). Replace this file with Broadsheet's real values; nothing else should change.
+ *
+ * Components never read these directly. They read the roles in theme.css.
+ */
+:root {
+  --color-bg: #f7f4ec;
+  --color-text: #1c1b19;
+  --color-surface: #efeadf;
+
+  --color-neutral-100: #ece7dc;
+  --color-neutral-200: #e2dccf;
+  --color-neutral-300: #d3ccbc;
+  --color-neutral-400: #b2ab9b;
+  --color-neutral-500: #8e887a;
+  --color-neutral-600: #6e695e;
+  --color-neutral-700: #56524a;
+  --color-neutral-800: #3a3732;
+  --color-neutral-900: #292724;
+
+  --color-accent: #0b7a93;
+  --color-accent-100: #dcf1f5;
+  --color-accent-200: #b4e2ec;
+  --color-accent-300: #80cfe0;
+  --color-accent-400: #48b8cf;
+  --color-accent-500: #1a9fbb;
+  --color-accent-600: #086a80;
+  --color-accent-700: #075a6d;
+  --color-accent-800: #06485a;
+  --color-accent-900: #053543;
+
+  --color-accent-2-100: #f8e0ee;
+  --color-accent-2-200: #f0bcda;
+  --color-accent-2-300: #e48dc0;
+  --color-accent-2-400: #d75aa5;
+  --color-accent-2-500: #c4338a;
+  --color-accent-2-600: #a62673;
+  --color-accent-2-700: #891d5e;
+  --color-accent-2-800: #6c174a;
+  --color-accent-2-900: #501137;
+
+  --shadow-sm: 0 1px 2px rgb(28 27 25 / 8%);
+  --shadow-md: 0 2px 8px rgb(28 27 25 / 10%);
+  --shadow-lg: 0 8px 24px rgb(28 27 25 / 16%);
+}

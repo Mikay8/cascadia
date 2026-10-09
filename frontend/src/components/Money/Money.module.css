@@ -1,0 +1,27 @@
+.money {
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.body {
+  font-size: inherit;
+}
+
+.kpi {
+  font-size: var(--cs-type-kpi-size);
+  font-weight: var(--cs-weight-bold);
+  line-height: var(--cs-type-kpi-line);
+}
+
+.strong {
+  font-weight: var(--cs-weight-bold);
+}
+
+.srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

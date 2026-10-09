@@ -1,0 +1,42 @@
+.badge {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  padding: 0 var(--space-1);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--cs-type-small-size);
+  line-height: var(--cs-type-small-line);
+  white-space: nowrap;
+}
+
+.payout {
+  background: var(--cs-payout-tint);
+  color: var(--cs-payout-ink);
+}
+
+.loss {
+  background: var(--cs-loss-tint);
+  color: var(--cs-loss-ink);
+}
+
+.neutral {
+  background: var(--cs-neutral-tint);
+  color: var(--cs-text);
+}
+
+.outline {
+  border-color: var(--cs-muted);
+  color: var(--cs-text);
+}
+
+.inverse {
+  background: var(--cs-inverse);
+  color: var(--cs-on-inverse);
+}
+
+.struck {
+  background: var(--cs-neutral-tint);
+  color: var(--cs-muted);
+  text-decoration: line-through;
+}

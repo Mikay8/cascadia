@@ -1,0 +1,61 @@
+/* Type, spacing, radius, and focus (docs/design-handoff/Cascadia Style Guide.dc.html). */
+
+:root {
+  --cs-font: "Source Serif 4", georgia, "Times New Roman", serif;
+  --cs-weight-regular: 400;
+  --cs-weight-bold: 600;
+
+  /* Staff sizes. The investor portal steps every size up one level (below). */
+  --cs-type-page-size: 30px;
+  --cs-type-page-line: 36px;
+  --cs-type-section-size: 20px;
+  --cs-type-section-line: 26px;
+  --cs-type-panel-size: 16px;
+  --cs-type-panel-line: 22px;
+  --cs-type-kpi-size: 26px;
+  --cs-type-kpi-line: 30px;
+  --cs-type-body-size: 14px;
+  --cs-type-body-line: 20px;
+  --cs-type-small-size: 13px;
+  --cs-type-small-line: 18px;
+  --cs-type-overline-size: 11px;
+  --cs-type-overline-line: 14px;
+  --cs-type-overline-tracking: 0.08em;
+
+  /* The guide names --space-1 to -8 but lists six values; 7 and 8 are assumed. */
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 15px;
+  --space-4: 20px;
+  --space-5: 30px;
+  --space-6: 40px;
+  --space-7: 60px;
+  --space-8: 80px;
+
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+
+  --cs-focus-width: 2px;
+  --cs-focus-offset: 2px;
+  --cs-marker-size: 18px;
+  --cs-stepper-bar: 4px;
+  --cs-panel-width: 440px;
+}
+
+[data-audience="portal"] {
+  --cs-type-page-size: 34px;
+  --cs-type-page-line: 40px;
+  --cs-type-section-size: 24px;
+  --cs-type-section-line: 30px;
+  --cs-type-panel-size: 19px;
+  --cs-type-panel-line: 26px;
+  --cs-type-kpi-size: 32px;
+  --cs-type-kpi-line: 38px;
+  --cs-type-body-size: 17px;
+  --cs-type-body-line: 26px;
+  --cs-type-small-size: 15px;
+  --cs-type-small-line: 22px;
+  --cs-type-overline-size: 12px;
+  --cs-type-overline-line: 16px;
+}

@@ -1,0 +1,38 @@
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--cs-type-body-size);
+  line-height: var(--cs-type-body-line);
+}
+
+.aside {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-left: auto;
+  font-weight: var(--cs-weight-bold);
+}
+
+.support {
+  background: var(--cs-loss-tint);
+  color: var(--cs-loss-ink);
+}
+
+.supportEnding {
+  background: var(--cs-loss-strong);
+  color: var(--cs-on-loss-strong);
+}
+
+.audit {
+  background: var(--cs-payout-tint);
+  color: var(--cs-payout-ink);
+}
+
+.info,
+.error {
+  background: var(--cs-neutral-tint);
+  color: var(--cs-text);
+}
