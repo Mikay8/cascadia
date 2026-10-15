@@ -91,6 +91,14 @@ jobs:
             -e PORT=8000 \
             cascadia-backend
           for i in $(seq 1 30); do curl -fsS http://localhost:8000/healthz && break; sleep 2; done
+          # /healthz answers without tenant resolution, but /admin/ needs a
+          # domain: seed the public tenant so the SSL-redirect check below
+          # exercises the real stack instead of the unknown-host 404.
+          docker exec api python manage.py shell -c "
+          from tenants.models import Domain, Tenant
+          tenant, _ = Tenant.objects.get_or_create(schema_name='public', defaults={'name': 'Public'})
+          Domain.objects.get_or_create(domain='localhost', tenant=tenant, defaults={'is_primary': True})
+          "
           curl -fsS http://localhost:8000/healthz | grep -q '"ok"'
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/admin/)" = "301"
       - name: Back-end logs

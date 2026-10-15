@@ -18,7 +18,35 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+# --- Multi-tenancy (increment 1.2) -------------------------------------------
+# Schema-per-tenant via django-tenants. Apps in SHARED_APPS live in the public
+# schema (tenant registry, auth is per-tenant); TENANT_APPS are migrated into
+# every tenant schema on provisioning.
+SHARED_APPS = [
+    "django_tenants",
+    "tenants",
+    "django.contrib.contenttypes",
+    "django.contrib.staticfiles",
+]
+
+TENANT_APPS = [
+    "django.contrib.contenttypes",
+    "django.contrib.auth",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.admin",
+]
+
+INSTALLED_APPS = list(SHARED_APPS) + [a for a in TENANT_APPS if a not in SHARED_APPS]
+
+TENANT_MODEL = "tenants.Tenant"
+TENANT_DOMAIN_MODEL = "tenants.Domain"
+
 MIDDLEWARE = [
+    # Must be first: selects the tenant schema from the request hostname.
+    # (Our subclass exempts /healthz so probes work on a fresh database.)
+    "tenants.middleware.TenantMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -28,6 +56,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+DATABASE_ROUTERS = ("django_tenants.routers.TenantSyncRouter",)
 
 ROOT_URLCONF = "config.urls"
 
@@ -49,11 +79,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
-# PostgreSQL only. Schema-per-tenant (increment 1.2) depends on it.
+# PostgreSQL only. Schema-per-tenant (increment 1.2) depends on it, so the
+# engine is django-tenants' postgres backend rather than Django's default.
 DATABASES = {
     "default": dj_database_url.config(
         default="postgres://cascadia:cascadia@localhost:5432/cascadia",
         conn_max_age=60,
+        engine="django_tenants.postgresql_backend",
     )
 }
 DATABASES["default"].setdefault("OPTIONS", {})["connect_timeout"] = 5
