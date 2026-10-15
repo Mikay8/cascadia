@@ -1,4 +1,0 @@
-line one django-tenants here
-line two django_tenants here
-line three it's possessive
-line four plain
