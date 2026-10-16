@@ -44,7 +44,7 @@ Human-only work in this phase: customer interviews, the partner's data and agree
 | 1.1 | Docker setup and a staging environment on Railway | 0.4 | A hello-world service deploys to staging on merge | S | Done | [#4](https://github.com/Mikay8/cascadia/pull/4) |
 | 1.2 | Tenant provisioning: schema-per-tenant creation and the migration runner, using django-tenants if it checks out | 1.1 | Creating a tenant creates its schema and applies all migrations | M | Done | [#5](https://github.com/Mikay8/cascadia/pull/5) |
 | 1.3 | Core tables and seed data | 1.2 | A seed script loads three fake tenants with funds, classes, investors, and loans | M | Done | [#6](https://github.com/Mikay8/cascadia/pull/6) |
-| 1.4 | Authentication with MFA and short sessions | 1.1 | Login with MFA works on staging | M | In review | |
+| 1.4 | Authentication with MFA and short sessions | 1.1 | Login with MFA works on staging | M | In review | [#7](https://github.com/Mikay8/cascadia/pull/7) |
 | 1.5 | Roles, permission checks, and the maker-checker mechanism | 1.3, 1.4 | The role matrix in `ROLES.md` is enforced by automated tests | M | Todo | |
 | 1.6 | Audit log on every write | 1.3 | Every API write produces an audit row | S | Todo | |
 | 1.7 | Tenant isolation test suite | 1.2, 1.5 | Every cross-tenant access attempt fails | S | Todo | |
