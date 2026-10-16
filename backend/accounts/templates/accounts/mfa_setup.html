@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Two-factor authentication setup — Cascadia</title>
+</head>
+<body>
+  <h1>Two-factor authentication</h1>
+  {% if mfa_enabled %}
+    <p>Two-factor authentication is <strong>enabled</strong> for your account.</p>
+    <h2>Disable it</h2>
+    <p>Enter a current code from your authenticator app to disable two-factor authentication.</p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="disable">
+      <p>
+        {{ form.token.label_tag }}<br>
+        {{ form.token }}
+        {% for error in form.token.errors %}<br>{{ error }}{% endfor %}
+      </p>
+      <button type="submit">Disable two-factor authentication</button>
+    </form>
+  {% else %}
+    <p>Scan this code with your authenticator app (Google Authenticator, 1Password, …),
+       then enter the 6-digit code it shows to finish setup.</p>
+    <img src="{{ qr_data_uri }}" alt="QR code for authenticator enrollment" width="200" height="200">
+    <p>Can't scan? Enter this secret manually: <code>{{ secret }}</code></p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="confirm">
+      <p>
+        {{ form.token.label_tag }}<br>
+        {{ form.token }}
+        {% for error in form.token.errors %}<br>{{ error }}{% endfor %}
+      </p>
+      <button type="submit">Confirm setup</button>
+    </form>
+  {% endif %}
+</body>
+</html>

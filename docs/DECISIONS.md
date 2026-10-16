@@ -18,6 +18,7 @@ A running log of choices. Claude Code checks it before assuming anything and upd
 | Infrastructure stays portable to AWS | Plain Dockerfiles, env-var config, standard Postgres, `$PORT` and `/healthz` on every service, no Railway-only features in code | 2026-10-09 | Rules and the Railway-to-AWS map are in `docs/INFRASTRUCTURE.md`; every infrastructure PR is checked against them |
 | Multi-tenancy | Schema-per-tenant in PostgreSQL, via django-tenants | 2026-10-14 | Confirmed in 1.2: Tenant/Domain models in the shared schema, `TenantMainMiddleware` routes by hostname, `TenantSyncRouter` splits migrations |
 | Tenant provisioning package | django-tenants 4.0.0 | 2026-10-14 | Verified before 1.2: maintained (now under the django-tenants org), Production/Stable, MIT, classifiers list Django 5.2/6.0/6.1, requires Django >=5.2,<6.2 |
+| MFA approach | TOTP via django-otp 1.7 (authenticator apps), no SMS; MFA is per-user (enroll to enable); login is password first, then TOTP challenge; sessions expire after 30 min idle (sliding) and 30 min absolute, enforced server-side | 2026-10-16 | Set in 1.4; confirm the timeout lengths and per-user (not mandatory) MFA in review |
 
 ## Proposed
 
