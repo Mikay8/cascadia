@@ -1,0 +1,30 @@
+.app {
+  min-height: 100vh;
+  background: var(--cs-bg);
+  color: var(--cs-text);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--cs-rule);
+}
+
+.brand {
+  font-size: var(--cs-type-section-size);
+  line-height: var(--cs-type-section-line);
+  margin: 0;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.username {
+  font-size: var(--cs-type-body-size);
+  color: var(--cs-muted);
+}

@@ -6,6 +6,11 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+
+# Baked into the bundle at build time; Railway injects it per environment
+# (e.g. VITE_API_URL=https://backend-uat.up.railway.app).
+ARG VITE_API_URL=""
+ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
 FROM nginx:1.28-alpine
