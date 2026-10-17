@@ -39,18 +39,29 @@ The back end runs migrations on start (`RUN_MIGRATIONS=1`). With more than one r
 | Environment | Purpose | Deploys | Data |
 | --- | --- | --- | --- |
 | Local (`docker compose up`) | Development | On save | Seed data only |
-| `staging` (Railway) | Integration and demos | Automatic on merge to `main` | Seed data only |
-| `production` | The live pilot | Manual, by a human only | Real tenant data; created in increment 1.9 |
+| `staging` (Railway) | Legacy; proposed for retirement once UAT is verified | Pinned to branch `1.1-docker-staging` (behind `main`) | Seed data only |
+| `uat` (Railway) | Pre-prod gate: preview increments before they reach `main` | Automatic on push to the `uat` branch | Seed data only |
+| `production` (Railway) | The live pilot (sandbox until increment 1.9 hardens it) | Manual, by a human only, from `main` | Seed data only; real tenant data after 1.9 |
 
-## Staging on Railway
+Branch flow (decided 2026-10-17): feature PRs target the long-lived `uat` branch; UAT auto-deploys from it. Promote `uat` → `main` via PR when the increment is accepted; production deploys from `main` manually.
 
-Project `cascadia`, workspace "Mikayla's Projects", region `sfo`.
+## Railway environments
 
-| Service | Root directory | Watch paths | Restart policy | URL |
+Project `cascadia`, workspace "Mikayla's Projects", region `us-west` (SFO).
+
+| Environment | Service | Branch | Auto-deploy | URL |
 | --- | --- | --- | --- | --- |
-| `backend` | `/backend` | `/backend/**` | On failure, 5 retries | https://backend-staging-bc95.up.railway.app |
-| `frontend` | `/frontend` | `/frontend/**` | On failure, 5 retries | https://frontend-staging-5620.up.railway.app |
-| `Postgres` | n/a | n/a | Platform managed | None; `postgres.railway.internal` only |
+| `staging` | `backend` | `1.1-docker-staging` | On | https://backend-staging-bc95.up.railway.app |
+| `staging` | `frontend` | `1.1-docker-staging` | On | https://frontend-staging-5620.up.railway.app |
+| `staging` | `Postgres` | n/a (template) | n/a | None; `postgres.railway.internal` only |
+| `uat` | `backend` | `uat` | On (push to `uat`) | https://backend-uat.up.railway.app |
+| `uat` | `frontend` | `uat` | On (push to `uat`) | https://frontend-uat.up.railway.app |
+| `uat` | `Postgres` | n/a (template) | n/a | None; `postgres.railway.internal` only |
+| `production` | `backend` | `main` | Off (manual only) | https://backend-production-4aa2.up.railway.app |
+| `production` | `frontend` | `main` | Off (manual only) | https://frontend-production-fb46.up.railway.app |
+| `production` | `Postgres` | n/a (template) | n/a | None; `postgres.railway.internal` only |
+
+Root directory, watch paths, and restart policy per service are as before (`/backend` and `/frontend` roots, watch `/backend/**` and `/frontend/**`, restart on failure with 5 retries).
 
 Back-end variables (values live in Railway, never in the repo):
 
@@ -72,6 +83,7 @@ Create services one at a time on Railway. Creating two at once left both stuck i
 - Never commit a secret, and never put real data in staging (hard rule 8).
 - Secrets are set in the platform's secret store: Railway variables today, AWS Secrets Manager later.
 - Production secrets are created and entered by a human, not by an AI session.
+- The `production` environment was duplicated from `staging`, so its `DJANGO_SECRET_KEY` is currently a copy of staging's. Rotate it from the Railway dashboard before any real data or real users touch production.
 
 ## Moving to AWS
 

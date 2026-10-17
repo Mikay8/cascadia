@@ -44,13 +44,14 @@ Human-only work in this phase: customer interviews, the partner's data and agree
 | 1.1 | Docker setup and a staging environment on Railway | 0.4 | A hello-world service deploys to staging on merge | S | Done | [#4](https://github.com/Mikay8/cascadia/pull/4) |
 | 1.2 | Tenant provisioning: schema-per-tenant creation and the migration runner, using django-tenants if it checks out | 1.1 | Creating a tenant creates its schema and applies all migrations | M | Done | [#5](https://github.com/Mikay8/cascadia/pull/5) |
 | 1.3 | Core tables and seed data | 1.2 | A seed script loads three fake tenants with funds, classes, investors, and loans | M | Done | [#6](https://github.com/Mikay8/cascadia/pull/6) |
-| 1.4 | Authentication with MFA and short sessions | 1.1 | Login with MFA works on staging | M | In review | [#7](https://github.com/Mikay8/cascadia/pull/7) |
+| 1.4 | Authentication with MFA and short sessions | 1.1 | Login with MFA works on staging | M | Done | [#7](https://github.com/Mikay8/cascadia/pull/7) |
 | 1.5 | Roles, permission checks, and the maker-checker mechanism | 1.3, 1.4 | The role matrix in `ROLES.md` is enforced by automated tests | M | Todo | |
 | 1.6 | Audit log on every write | 1.3 | Every API write produces an audit row | S | Todo | |
 | 1.7 | Tenant isolation test suite | 1.2, 1.5 | Every cross-tenant access attempt fails | S | Todo | |
 | 1.8 | Design tokens and component library with Storybook | Design handoff | Each component matches the handoff and has empty and loading states | L | In progress | [#2](https://github.com/Mikay8/cascadia/pull/2) |
 | 1.9 | Production database hardening on Railway: private networking, point-in-time recovery, high availability, restore drill | 1.2 | A restore drill is recorded with its recovery time | S | Todo | |
-| 1.10 | AI guardrails: AI actor, audit fields, per-tenant switch, untrusted-input handling | 1.5, 1.6 | Tests show an AI actor cannot approve or execute, and every AI action is logged with its model and sources | M | Todo | |
+| 1.10 | Demo UI slice: JSON API + React login and funds screens | 1.3, 1.4 | MFA login works in the UAT frontend and fund data renders | M | In review | |
+| 1.11 | AI guardrails: AI actor, audit fields, per-tenant switch, untrusted-input handling | 1.5, 1.6 | Tests show an AI actor cannot approve or execute, and every AI action is logged with its model and sources | M | Todo | |
 
 Also in this phase: Railway project on the Pro plan with staging and production environments, Postgres on private networking only, confirm point-in-time recovery is available in the dashboard, download Railway's SOC 2 Type II report and bridge letter, ask Railway whether SSO, audit logs, and an uptime SLA need the Enterprise plan, and write the exit plan (AWS or Railway Enterprise) for the go-live review.
 
@@ -95,8 +96,8 @@ Also in this phase: Railway project on the Pro plan with staging and production 
 | 3.7 | Reversals and corrections | 3.4 | A bounced payment reverses the pool with no deleted history | M | Todo | |
 | 3.8 | Unmatched events backend and nightly reconciliation against the servicer | 3.3 | Unmatched events are listed and balance differences are flagged | M | Todo | |
 | 3.9 | Ingestion alerts | 3.2 | A failed or stalled feed alerts a person | S | Todo | |
-| 3.10 | AI mapping suggestions for unrecognized event types | 3.3, 1.10 | Suggestions pass schema validation and cannot take effect without human approval | S | Todo | |
-| 3.11 | AI loan-match suggestions for unmatched events | 3.8, 1.10 | Each suggestion carries a confidence score and needs a human to confirm it | S | Todo | |
+| 3.10 | AI mapping suggestions for unrecognized event types | 3.3, 1.11 | Suggestions pass schema validation and cannot take effect without human approval | S | Todo | |
+| 3.11 | AI loan-match suggestions for unmatched events | 3.8, 1.11 | Each suggestion carries a confidence score and needs a human to confirm it | S | Todo | |
 
 ---
 
@@ -119,8 +120,8 @@ Also in this phase: Railway project on the Pro plan with staging and production 
 | 4.8 | Waterfall run flow: preview, simulate, execute, run detail | 2.6, 2.7, 4.7 | A run executes and every figure drills down to its source events | L | Todo | |
 | 4.9 | Loss run detail | 2.5, 3.6 | A proposed loss run can be confirmed and its results viewed | M | Todo | |
 | 4.10 | Shadow pilot with the partner | 4.1 to 4.9 | The log of mismatches against their Excel reaches zero | M | Todo | |
-| 4.11 | AI ruleset drafting from an uploaded agreement, with clause citations | 4.5, 1.10, 0.5 | Drafted tiers cite their clauses and enter maker-checker like any other draft | M | Todo | |
-| 4.12 | Run review agent that flags anomalies before approval | 4.8, 2.9, 1.10 | Flags appear on the approval screen and the agent cannot approve or execute | M | Todo | |
+| 4.11 | AI ruleset drafting from an uploaded agreement, with clause citations | 4.5, 1.11, 0.5 | Drafted tiers cite their clauses and enter maker-checker like any other draft | M | Todo | |
+| 4.12 | Run review agent that flags anomalies before approval | 4.8, 2.9, 1.11 | Flags appear on the approval screen and the agent cannot approve or execute | M | Todo | |
 | 4.13 | Plain-language explanations in the Show calculation panel, plus AI match suggestions in the unmatched queue | 2.9, 4.3, 4.8, 3.11 | Explanations quote the stored trace and their numbers match it in tests | M | Todo | |
 
 ---
@@ -144,7 +145,7 @@ Also in this phase: Railway project on the Pro plan with staging and production 
 | 5.8 | Platform console and support-access requests | 1.5 | Support access needs tenant approval and is logged | M | Todo | |
 | 5.9 | Hardening: penetration test fixes, load test, backup drill, alerting | 5.1 to 5.8 | All penetration test findings are closed | M | Todo | |
 | 5.10 | Launch readiness: runbook, help content, contract review, SOC 2 evidence | 5.9 | The partner runs one real period live | M | Todo | |
-| 5.11 | AI report drafting: investor letters, board summaries, impact narratives, CDFI Fund report text | 5.1, 5.2, 5.3, 1.10 | Drafts cite the figures they use and a human edits before anything is sent | M | Todo | |
+| 5.11 | AI report drafting: investor letters, board summaries, impact narratives, CDFI Fund report text | 5.1, 5.2, 5.3, 1.11 | Drafts cite the figures they use and a human edits before anything is sent | M | Todo | |
 | 5.12 | Investor-facing balance explanations in the portal | 5.4, 2.9 | Explanations show only the investor's own amounts, proven by isolation tests | S | Todo | |
 | 5.13 | AI evaluation suite and release checks | 0.2, 0.5, 4.11, 4.13 | Accuracy on the golden cases is measured and tracked for every release | M | Todo | |
 
