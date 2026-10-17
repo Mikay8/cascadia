@@ -4,3 +4,6 @@ django-tenants~=4.0
 psycopg[binary]~=3.3
 gunicorn~=26.2
 whitenoise~=6.12
+django-otp~=1.7
+qrcode~=8.0
+pillow~=11.0

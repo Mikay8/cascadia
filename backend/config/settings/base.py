@@ -36,6 +36,11 @@ TENANT_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
+    # TOTP devices belong to per-tenant users, so the device tables live in
+    # each tenant schema alongside auth_user (increment 1.4).
+    "django_otp.plugins.otp_totp",
+    # Login / MFA views serve per-tenant users (no models of its own).
+    "accounts",
     "funds",
 ]
 
@@ -54,6 +59,10 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    # Annotates request.user with is_verified(); must follow auth middleware.
+    "django_otp.middleware.OTPMiddleware",
+    # Enforces the absolute session timeout after login (increment 1.4).
+    "accounts.middleware.AbsoluteSessionTimeoutMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -107,3 +116,23 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# --- Authentication and sessions (increment 1.4) ------------------------------
+# Sessions are short on purpose: 30 minutes of idle time ends the session
+# (SESSION_SAVE_EVERY_REQUEST refreshes the cookie and the server-side expiry
+# on every request, so activity keeps it alive), and the absolute timeout
+# middleware below caps a session at 30 minutes from login no matter what.
+# Both are enforced server-side in the session store, not just the cookie.
+SESSION_COOKIE_AGE = 30 * 60
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+# SESSION_COOKIE_SECURE is set in production.py (dev serves over plain HTTP).
+CASCADIA_ABSOLUTE_SESSION_TIMEOUT = 30 * 60  # seconds from login
+
+# Issuer label shown in authenticator apps when enrolling TOTP.
+OTP_TOTP_ISSUER = "Cascadia"
+
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/admin/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
