@@ -27,6 +27,8 @@ SHARED_APPS = [
     "tenants",
     "django.contrib.contenttypes",
     "django.contrib.staticfiles",
+    # CORS headers for the demo UI's cross-origin API calls (increment 1.10).
+    "corsheaders",
 ]
 
 TENANT_APPS = [
@@ -41,6 +43,9 @@ TENANT_APPS = [
     "django_otp.plugins.otp_totp",
     # Login / MFA views serve per-tenant users (no models of its own).
     "accounts",
+    # JSON API for the demo UI (increment 1.10). No models of its own; its
+    # views must run inside the tenant schema like the template views.
+    "api",
     "funds",
 ]
 
@@ -53,6 +58,9 @@ MIDDLEWARE = [
     # Must be first: selects the tenant schema from the request hostname.
     # (Our subclass exempts /healthz so probes work on a fresh database.)
     "tenants.middleware.TenantMiddleware",
+    # CORS as high as possible, right after tenant selection, so preflights
+    # get their headers even when a later middleware returns early.
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -132,6 +140,13 @@ CASCADIA_ABSOLUTE_SESSION_TIMEOUT = 30 * 60  # seconds from login
 
 # Issuer label shown in authenticator apps when enrolling TOTP.
 OTP_TOTP_ISSUER = "Cascadia"
+
+# --- Demo UI cross-origin API access (increment 1.10) -------------------------
+# The React frontend is a different origin from the backend in UAT. The API
+# allows it only when named here (comma-separated). Credentials (session
+# cookie) are allowed; CSRF still enforced per request.
+CORS_ALLOWED_ORIGINS = [o for o in os.environ.get("CASCADIA_CORS_ORIGINS", "").split(",") if o]
+CORS_ALLOW_CREDENTIALS = True
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/admin/"

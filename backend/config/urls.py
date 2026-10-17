@@ -6,5 +6,6 @@ from config.views import healthz
 urlpatterns = [
     path("admin/", admin_site.urls),
     path("accounts/", include("accounts.urls")),
+    path("api/", include("api.urls")),
     path("healthz", healthz, name="healthz"),
 ]

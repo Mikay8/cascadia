@@ -9,6 +9,14 @@ if [ "${RUN_MIGRATIONS:-1}" = "1" ]; then
   python manage.py migrate --noinput
 fi
 
+# Demo-environment scaffolding (off by default): seed the three fake tenants
+# plus the demo login. Set SEED_DEMO=1 in demo environments only (UAT);
+# never in production. PRIMARY_DOMAIN (also env) maps the platform hostname
+# to the first seed tenant so /admin/ and /accounts/* resolve.
+if [ "${SEED_DEMO:-0}" = "1" ]; then
+  python manage.py seed_demo
+fi
+
 exec gunicorn config.wsgi \
   --bind "0.0.0.0:${PORT:-8000}" \
   --workers "${WEB_CONCURRENCY:-2}" \

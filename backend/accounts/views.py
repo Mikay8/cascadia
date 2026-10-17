@@ -9,30 +9,29 @@ devices are per-tenant by construction.
 """
 
 import base64
-import time
 from base64 import b32encode
 from io import BytesIO
 
 import qrcode
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
-from django_otp import login as otp_login
-from django_otp import user_has_device
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
 from .forms import TOTPTokenForm
-from .middleware import SESSION_STARTED_AT_KEY
-
-MFA_PENDING_USER_ID_KEY = "mfa_pending_user_id"
+from .services import (
+    begin_login,
+    clear_pending_mfa,
+    complete_mfa_login,
+    confirmed_devices,
+    get_pending_mfa_user,
+    verify_mfa_token,
+)
 
 
 def _safe_next_url(request: HttpRequest, default: str) -> str:
@@ -43,10 +42,6 @@ def _safe_next_url(request: HttpRequest, default: str) -> str:
     return default
 
 
-def _confirmed_devices(user: AbstractBaseUser) -> list[TOTPDevice]:
-    return list(TOTPDevice.objects.filter(user=user, confirmed=True))
-
-
 def login_view(request: HttpRequest) -> HttpResponse:
     """Step 1: username and password."""
     redirect_to = _safe_next_url(request, settings.LOGIN_REDIRECT_URL)
@@ -54,13 +49,9 @@ def login_view(request: HttpRequest) -> HttpResponse:
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            if user_has_device(user):
-                # Park the user id; they are NOT authenticated until step 2.
-                request.session[MFA_PENDING_USER_ID_KEY] = user.pk
-                request.session.cycle_key()
+            if begin_login(request, user):
                 mfa_url = reverse("accounts:mfa")
                 return redirect(f"{mfa_url}?next={redirect_to}")
-            auth_login(request, user)
             return redirect(redirect_to)
     else:
         form = AuthenticationForm(request)
@@ -73,30 +64,23 @@ def login_view(request: HttpRequest) -> HttpResponse:
 
 def mfa_view(request: HttpRequest) -> HttpResponse:
     """Step 2: TOTP code. Requires a pending user id from step 1."""
-    user_id = request.session.get(MFA_PENDING_USER_ID_KEY)
-    user = get_user_model().objects.filter(pk=user_id, is_active=True).first() if user_id else None
+    user = get_pending_mfa_user(request)
     if user is None:
-        request.session.pop(MFA_PENDING_USER_ID_KEY, None)
+        clear_pending_mfa(request)
         return redirect("accounts:login")
     redirect_to = _safe_next_url(request, settings.LOGIN_REDIRECT_URL)
-    devices = _confirmed_devices(user)
+    devices = confirmed_devices(user)
     if not devices:
         # MFA was disabled mid-flow; fall back to a plain login.
-        request.session.pop(MFA_PENDING_USER_ID_KEY, None)
-        auth_login(request, user)
+        complete_mfa_login(request, user, None)
         return redirect(redirect_to)
     if request.method == "POST":
         form = TOTPTokenForm(request.POST)
         if form.is_valid():
             token = form.cleaned_data["token"]
-            # verify_token applies django-otp's built-in throttling, so
-            # repeated guesses are slowed down automatically.
-            device = next((d for d in devices if d.verify_token(token)), None)
+            device = verify_mfa_token(user, token)
             if device is not None:
-                request.session.pop(MFA_PENDING_USER_ID_KEY, None)
-                auth_login(request, user)
-                otp_login(request, device)
-                request.session[SESSION_STARTED_AT_KEY] = time.time()
+                complete_mfa_login(request, user, device)
                 return redirect(redirect_to)
             form.add_error("token", "That code did not match. Try the current code.")
     else:
@@ -115,7 +99,7 @@ def _device_qr_data_uri(device: TOTPDevice) -> str:
 def mfa_setup_view(request: HttpRequest) -> HttpResponse:
     """Enroll (or disable) TOTP MFA for the logged-in user."""
     user = request.user
-    confirmed = _confirmed_devices(user)
+    confirmed = confirmed_devices(user)
     pending_device: TOTPDevice | None = None
     if not confirmed:
         pending_device, _ = TOTPDevice.objects.get_or_create(
