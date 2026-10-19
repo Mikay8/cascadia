@@ -13,7 +13,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.db import connection
-from django.test import Client
+from django.test import Client, override_settings
 from django_otp.oath import totp
 from django_otp.plugins.otp_totp.models import TOTPDevice
 from django_tenants.utils import get_public_schema_name, schema_context
@@ -249,3 +249,23 @@ def test_seed_demo_idempotent_with_primary_domain() -> None:
                 user = User.objects.get(username="demo")
                 assert user.check_password("demo-pass")
                 assert user.is_staff and user.is_superuser
+
+
+@pytest.mark.django_db(transaction=True)
+def test_cors_preflight_allows_x_tenant_header() -> None:
+    """Regression test: the demo UI sends X-Tenant on every API request, so
+    the CORS preflight must allow-list it, or the browser blocks the real
+    request after OPTIONS (observed in UAT: OPTIONS 200, then nothing)."""
+    _seed()
+    origin = "https://frontend-uat.up.railway.app"
+    with override_settings(CORS_ALLOWED_ORIGINS=[origin]):
+        resp = Client().options(
+            "/api/auth/csrf/",
+            HTTP_ORIGIN=origin,
+            HTTP_ACCESS_CONTROL_REQUEST_METHOD="GET",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="x-tenant",
+            HTTP_X_TENANT="acme",
+        )
+        assert resp.status_code == 200
+        allow_headers = resp.get("Access-Control-Allow-Headers", "")
+        assert "x-tenant" in [h.strip().lower() for h in allow_headers.split(",")]
