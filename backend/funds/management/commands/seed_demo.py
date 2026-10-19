@@ -3,13 +3,23 @@
 All data is fictitious and deterministic. Safe to re-run: tenants and rows
 that already exist are left alone.
 
+Demo-environment scaffolding (env-gated, off by default):
+- ``PRIMARY_DOMAIN``: when set, the value is registered as an additional
+  Domain row on the first seed tenant (acme), so the backend's own hostname
+  (e.g. backend-uat.up.railway.app) routes to a tenant instead of 404ing.
+  The acme.localhost-style domains are kept as well.
+- A ``demo`` / ``demo-pass`` staff superuser is created in every tenant.
+  These are clearly demo-only seed credentials, not a real secret.
+
 Usage: python manage.py seed_demo
 """
 
+import os
 from datetime import date
 from decimal import Decimal
 from typing import Any
 
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django_tenants.utils import schema_context
 
@@ -202,6 +212,11 @@ TENANTS: list[dict[str, Any]] = [
 
 CLASS_NAMES = ["Class A", "Class B", "Class C"]
 
+#: Demo-only seed credentials. Clearly not a real secret: the same values are
+#: documented in the PR and the demo UI. Never use for anything but seed data.
+DEMO_USERNAME = "demo"
+DEMO_PASSWORD = "demo-pass"  # noqa: S105 - demo-only seed credential, documented above
+
 
 class Command(BaseCommand):
     help = "Seed three fake tenants with funds, classes, investors, and loans."
@@ -209,6 +224,19 @@ class Command(BaseCommand):
     def handle(self, *args: str, **options: str) -> None:
         for spec in TENANTS:
             self._seed_tenant(spec)
+
+    @staticmethod
+    def _seed_demo_user(schema_name: str) -> None:
+        """Create (or refresh) the demo login for a tenant. Idempotent."""
+        user_model = get_user_model()
+        user, _ = user_model.objects.get_or_create(
+            username=DEMO_USERNAME,
+            defaults={"is_staff": True, "is_superuser": True},
+        )
+        user.set_password(DEMO_PASSWORD)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
 
     def _seed_tenant(self, spec: dict[str, Any]) -> None:
         tenant, created = Tenant.objects.get_or_create(
@@ -219,8 +247,18 @@ class Command(BaseCommand):
         Domain.objects.get_or_create(
             domain=spec["domain"], defaults={"tenant": tenant, "is_primary": True}
         )
+        # Demo-env scaffolding: map the platform hostname to the first seed
+        # tenant so /admin/ and /accounts/* resolve instead of 404ing.
+        # get_or_create keeps re-runs from duplicating the domain.
+        primary_domain = os.environ.get("PRIMARY_DOMAIN", "").strip()
+        if primary_domain and spec["schema_name"] == TENANTS[0]["schema_name"]:
+            Domain.objects.get_or_create(
+                domain=primary_domain,
+                defaults={"tenant": tenant, "is_primary": False},
+            )
 
         with schema_context(spec["schema_name"]):
+            self._seed_demo_user(spec["schema_name"])
             fund, fund_created = Fund.objects.get_or_create(
                 name=spec["fund"]["name"],
                 defaults={"vintage_year": spec["fund"]["vintage_year"]},

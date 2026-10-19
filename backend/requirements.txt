@@ -7,3 +7,4 @@ whitenoise~=6.12
 django-otp~=1.7
 qrcode~=8.0
 pillow~=11.0
+django-cors-headers~=4.9
