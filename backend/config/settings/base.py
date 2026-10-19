@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from corsheaders.defaults import default_headers
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -147,6 +148,9 @@ OTP_TOTP_ISSUER = "Cascadia"
 # cookie) are allowed; CSRF still enforced per request.
 CORS_ALLOWED_ORIGINS = [o for o in os.environ.get("CASCADIA_CORS_ORIGINS", "").split(",") if o]
 CORS_ALLOW_CREDENTIALS = True
+# The demo UI sends X-Tenant on every API request; it must be allow-listed
+# for preflight or the browser blocks the actual request after OPTIONS.
+CORS_ALLOW_HEADERS = (*default_headers, "x-tenant")
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/admin/"
