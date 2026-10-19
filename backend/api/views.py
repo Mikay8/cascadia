@@ -17,7 +17,7 @@ from typing import Any
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as auth_logout
 from django.http import HttpRequest, JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.middleware.csrf import get_token
 
 from accounts.services import (
     begin_login,
@@ -51,10 +51,15 @@ def _unauthenticated(request: HttpRequest) -> JsonResponse | None:
     return None
 
 
-@ensure_csrf_cookie
 def csrf_view(request: HttpRequest) -> JsonResponse:
-    """Set the CSRF cookie so the SPA can make POSTs. Safe to call often."""
-    return JsonResponse({"detail": "ok"})
+    """Return the CSRF token in JSON so the SPA can send it back.
+
+    The SPA runs on a different origin from the API, so it cannot read the
+    CSRF cookie via document.cookie; the token comes from this response body
+    instead. get_token() still sets the cookie, which Django's CSRF
+    validation requires alongside the X-CSRFToken header. Safe to call often.
+    """
+    return JsonResponse({"detail": "ok", "csrf_token": get_token(request)})
 
 
 def login_view(request: HttpRequest) -> JsonResponse:
