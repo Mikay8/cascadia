@@ -79,8 +79,29 @@ def test_csrf_endpoint_sets_cookie(client: Client) -> None:
     _seed()
     resp = client.get("/api/auth/csrf/", HTTP_X_TENANT="acme")
     assert resp.status_code == 200
-    assert resp.json() == {"detail": "ok"}
+    # The SPA runs cross-origin and cannot read the cookie via
+    # document.cookie, so the token is also returned in the JSON body.
+    # (The JSON token is a masked form of the cookie secret; both validate.)
+    assert resp.json()["detail"] == "ok"
+    assert isinstance(resp.json()["csrf_token"], str) and resp.json()["csrf_token"]
     assert "csrftoken" in resp.cookies
+
+
+@pytest.mark.django_db(transaction=True)
+def test_post_accepts_json_csrf_token() -> None:
+    """The cross-origin SPA flow: token comes from the csrf JSON body, not
+    the cookie, and must pass CSRF validation on POST."""
+    _seed()
+    client = Client(enforce_csrf_checks=True)
+    token = client.get("/api/auth/csrf/", HTTP_X_TENANT="acme").json()["csrf_token"]
+    resp = client.post(
+        "/api/auth/login/",
+        data=json.dumps({"username": "demo", "password": "wrong"}),
+        content_type="application/json",
+        HTTP_X_TENANT="acme",
+        HTTP_X_CSRFTOKEN=token,
+    )
+    assert resp.status_code == 400  # invalid credentials, not CSRF failure
 
 
 @pytest.mark.django_db(transaction=True)

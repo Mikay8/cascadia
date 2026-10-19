@@ -152,6 +152,16 @@ CORS_ALLOW_CREDENTIALS = True
 # for preflight or the browser blocks the actual request after OPTIONS.
 CORS_ALLOW_HEADERS = (*default_headers, "x-tenant")
 
+# Cross-origin session auth (increment 1.10.2): when CORS origins are
+# configured, the SPA runs on a different origin and the browser withholds
+# SameSite=Lax cookies on cross-origin requests. That breaks session auth
+# (no session cookie sent) and CSRF validation (no CSRF cookie sent to
+# compare the X-CSRFToken header against). SameSite=None allows them;
+# Secure is already True in production.py (dev stays on Lax over HTTP).
+if CORS_ALLOWED_ORIGINS:
+    SESSION_COOKIE_SAMESITE = "None"
+    CSRF_COOKIE_SAMESITE = "None"
+
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
