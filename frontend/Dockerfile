@@ -7,10 +7,13 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 
-# Baked into the bundle at build time; Railway injects it per environment
-# (e.g. VITE_API_URL=https://backend-uat.up.railway.app).
-ARG VITE_API_URL=""
-ENV VITE_API_URL=$VITE_API_URL
+# The SPA calls the API on relative /api URLs, proxied by nginx (see
+# nginx.conf.template) so the app is same-origin: cookies are first-party and
+# no CORS dance is needed. BACKEND_URL is the API's base URL and is required
+# in any environment that serves this image (e.g. on Railway set
+# BACKEND_URL=https://backend-uat.up.railway.app on the frontend service).
+# In local dev the Vite dev server proxies /api instead (vite.config.js).
+ENV BACKEND_URL=""
 RUN npm run build
 
 FROM nginx:1.28-alpine
