@@ -1,11 +1,12 @@
 // Minimal JSON API client for the demo UI (increment 1.10).
 //
-// Same-origin in dev (Vite proxies /api to Django on :8000); cross-origin in
-// UAT via VITE_API_URL (baked in at build time) plus CORS on the backend.
+// Same-origin in every deployment: in dev the Vite server proxies /api to
+// Django on :8000, and the production nginx image proxies /api to the backend
+// (nginx.conf.template, BACKEND_URL). So API_BASE is always relative and the
+// session/CSRF cookies are first-party — no CORS needed for the demo UI.
 // Every request carries credentials (the session cookie) and the X-Tenant
 // header naming the tenant schema. POSTs send the CSRF token from the
-// /api/auth/csrf/ JSON response as X-CSRFToken — the CSRF cookie itself
-// lives on the API's origin, so document.cookie cannot see it cross-origin.
+// /api/auth/csrf/ JSON response as X-CSRFToken.
 
 const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 
@@ -27,8 +28,7 @@ export class ApiError extends Error {
   }
 }
 
-// CSRF token for POSTs, taken from the /api/auth/csrf/ JSON response (the
-// cookie itself is on the API's origin and unreadable cross-origin).
+// CSRF token for POSTs, taken from the /api/auth/csrf/ JSON response.
 let csrfToken = '';
 
 async function request(path, { method = 'GET', body } = {}) {

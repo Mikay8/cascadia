@@ -16,11 +16,17 @@ export default function Login({ onLoggedIn }) {
   const [token, setToken] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  // The login POST needs the CSRF token fetched below; the button stays
+  // disabled until it arrives so a fast click can't 403 (increment 1.10.3).
+  const [csrfReady, setCsrfReady] = useState(false);
 
   useEffect(() => {
-    api.csrf().catch(() => {
-      setError('Could not reach the server. Check your connection.');
-    });
+    api.csrf().then(
+      () => setCsrfReady(true),
+      () => {
+        setError('Could not reach the server. Check your connection.');
+      },
+    );
   }, []);
 
   function fail(err) {
@@ -106,7 +112,7 @@ export default function Login({ onLoggedIn }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" variant="primary" busy={busy}>
+            <Button type="submit" variant="primary" busy={busy} disabled={!csrfReady}>
               Log in
             </Button>
           </form>
